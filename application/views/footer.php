@@ -1,8 +1,13 @@
+        <div class="clearfix clear-fix"></div>
         <div class="container">
-          <hr>
-          <footer>
-            <p>&copy; <a href="http://www.info-sanatate.ro" targer="_blank">Info-Sanatate</a> 2015</p>
-          </footer>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <hr>
+                    <footer>
+                        <p>&copy; <a href="http://www.info-sanatate.ro" targer="_blank">Info-Sanatate</a> 2015</p>
+                    </footer>
+                </div>
+            </div>
         </div> <!-- /container -->  
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
