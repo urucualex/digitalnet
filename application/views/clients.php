@@ -70,6 +70,9 @@
 						<th>Spoturi astazi</th>
 						<th>Lungime playlist</th>
 						<th>Ultima eroare</th>
+						<th>Ip extern</th>
+						<th>Ip intern</th>
+						<th>MAC</th>
 						<th>Observatii</th>
  					</tr>
 				</thead>

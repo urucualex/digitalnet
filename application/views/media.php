@@ -23,7 +23,7 @@
 					<hr>
 				</li>
 				<li>
-					<a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Adauga in client</a>
+					<a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Adauga in statii</a>
 				</li>
 				<li>
 					<a href="#"><span class="glyphicon glyphicon-list"></span> Salveaza ordinea curenta</a>
@@ -86,8 +86,8 @@
 						<th>Label</th>
 						<th>Fisier</th>
 						<th>Durata</th>
-						<th>Timpul de afisare</th>
-						<th>Numar de clienti</th>
+						<th>Minutul afisarii</th>
+						<th>Numar de statii</th>
 						<th>Client</th>
 						<th>Tip</th>
 						<th>Data de inceput</th>
@@ -101,6 +101,7 @@
 						<td>1</td>
 						<td>
 							<label><input type="checkbox"/></label>
+							<a href="/media/edit/1" target="_blank" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
 						</td>
 						<td>1</td>
 						<td>Oscilococcinum iunie 2015</td>						
