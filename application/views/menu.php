@@ -15,7 +15,7 @@
                     <a href="/clients">Statii</a>
                 </li>
                 <li>
-                    <a href="/campaigns">Campanii</a>
+                    <a href="/media">Campanii</a>
                 </li>
                 <li>
                     <a href="/log">Log</a>

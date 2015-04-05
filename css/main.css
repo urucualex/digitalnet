@@ -13,9 +13,13 @@
 
 
 
+.nav-sidebar label {
+	margin-left: 20px;
+}
 
-
-
+.nav-sidebar .filter-list-box label {
+	margin-left: inherit;
+}
 
 
 

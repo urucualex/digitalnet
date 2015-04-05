@@ -8,10 +8,10 @@
 		<div class="col-sm-2 sidebar">
 			<ul class="nav nav-sidebar">
 				<li>
-					<a href="/add"><span class="glyphicon glyphicon-plus"></span> Add Client</a>
+					<a href="/add"><span class="glyphicon glyphicon-plus"></span> Adauga</a>
 				</li>
 				<li>
-					<a href="/add"><span class="glyphicon glyphicon-plus"></span> Raport</a>
+					<a href="/add"><span class="glyphicon glyphicon-file"></span> Raport</a>
 				</li>
 				<li class="checkbox">
 				 	<label><input type="checkbox" name="update">Aplica schimbari</label>
@@ -70,6 +70,7 @@
 						<th>Spoturi astazi</th>
 						<th>Lungime playlist</th>
 						<th>Ultima eroare</th>
+						<th>Observatii</th>
  					</tr>
 				</thead>
 				<tbody>
@@ -87,7 +88,8 @@
 						<td>14-mar-2015 09:00</td>						
 						<td>23</td>						
 						<td>45:00</td>						
-						<td>10-mar-2015 no internet</td>						
+						<td>10-mar-2015 no internet</td>	
+						<td></td>					
 					</tr>
 					<tr>
 						<td>1</td>
@@ -104,6 +106,7 @@
 						<td>23</td>						
 						<td>45:00</td>						
 						<td>10-mar-2015 no internet</td>						
+						<td></td>					
 					</tr>
 					<tr>
 						<td>1</td>
@@ -120,6 +123,7 @@
 						<td>23</td>						
 						<td>45:00</td>						
 						<td>10-mar-2015 no internet</td>						
+						<td></td>					
 					</tr>
 					<tr>
 						<td>1</td>
@@ -136,6 +140,7 @@
 						<td>23</td>						
 						<td>45:00</td>						
 						<td>10-mar-2015 no internet</td>						
+						<td></td>					
 					</tr>															
 				</tbody>
 			</table>
