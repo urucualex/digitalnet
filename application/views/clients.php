@@ -8,7 +8,7 @@
 		<div class="col-sm-2 sidebar">
 			<ul class="nav nav-sidebar">
 				<li>
-					<a href="/add"><span class="glyphicon glyphicon-plus"></span> Adauga</a>
+					<a href="/clients/item"><span class="glyphicon glyphicon-plus"></span> Adauga</a>
 				</li>
 				<li>
 					<a href="/add"><span class="glyphicon glyphicon-file"></span> Raport</a>
@@ -80,7 +80,7 @@
 					<tr>
 						<td>1</td>
 						<td>
-							<div class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></div>
+							<a href="/clients/item" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
 						</td>
 						<td>Spitalul Elias 1</td>
 						<td>1, spital, maternitate</td>						
@@ -92,12 +92,15 @@
 						<td>23</td>						
 						<td>45:00</td>						
 						<td>10-mar-2015 no internet</td>	
+						<td>89.33.125.22</td>					
+						<td>192.168.0.1</td>					
+						<td>25:34:aa:4c:22:cc</td>					
 						<td></td>					
 					</tr>
 					<tr>
 						<td>1</td>
 						<td>
-							<div class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></div>
+							<a href="/clients/item" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
 						</td>
 						<td>Spitalul Elias 1</td>
 						<td>1, spital, maternitate</td>						
@@ -108,13 +111,16 @@
 						<td>14-mar-2015 09:00</td>						
 						<td>23</td>						
 						<td>45:00</td>						
-						<td>10-mar-2015 no internet</td>						
+						<td>10-mar-2015 no internet</td>	
+						<td>89.33.125.22</td>					
+						<td>192.168.0.1</td>					
+						<td>25:34:aa:4c:22:cc</td>					
 						<td></td>					
 					</tr>
 					<tr>
 						<td>1</td>
 						<td>
-							<div class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></div>
+							<a href="/clients/item" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
 						</td>
 						<td>Spitalul Elias 1</td>
 						<td>1, spital, maternitate</td>						
@@ -125,13 +131,16 @@
 						<td>14-mar-2015 09:00</td>						
 						<td>23</td>						
 						<td>45:00</td>						
-						<td>10-mar-2015 no internet</td>						
+						<td>10-mar-2015 no internet</td>	
+						<td>89.33.125.22</td>					
+						<td>192.168.0.1</td>					
+						<td>25:34:aa:4c:22:cc</td>					
 						<td></td>					
 					</tr>
 					<tr>
 						<td>1</td>
 						<td>
-							<div class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></div>
+							<a href="/clients/item" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
 						</td>
 						<td>Spitalul Elias 1</td>
 						<td>1, spital, maternitate</td>						
@@ -142,9 +151,13 @@
 						<td>14-mar-2015 09:00</td>						
 						<td>23</td>						
 						<td>45:00</td>						
-						<td>10-mar-2015 no internet</td>						
+						<td>10-mar-2015 no internet</td>	
+						<td>89.33.125.22</td>					
+						<td>192.168.0.1</td>					
+						<td>25:34:aa:4c:22:cc</td>					
 						<td></td>					
 					</tr>															
+
 				</tbody>
 			</table>
 		</div> <!-- Content -->

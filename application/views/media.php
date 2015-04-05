@@ -11,7 +11,7 @@
 					<label>Data: <input type="date" class="form-control" value="2015-05-15"></label>
 				</li>
 				<li>
-					<a href="/media/add"><span class="glyphicon glyphicon-plus"></span> Adauga</a>
+					<a href="/media/item"><span class="glyphicon glyphicon-plus"></span> Adauga</a>
 				</li>
 				<li>
 					<a href="/media/copy"><span class="glyphicon glyphicon-duplicate"></span> Copiaza</a>
@@ -101,7 +101,7 @@
 						<td>1</td>
 						<td>
 							<label><input type="checkbox"/></label>
-							<a href="/media/edit/1" target="_blank" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+							<a href="/media/item" target="_blank" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
 						</td>
 						<td>1</td>
 						<td>Oscilococcinum iunie 2015</td>						
