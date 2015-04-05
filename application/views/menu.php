@@ -18,11 +18,11 @@
                     <a href="/media">Campanii</a>
                 </li>
                 <li>
-                    <a href="/log">Log</a>
+                    <a href="#/log">Log</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/user">User Name</a></li>
+                <li><a href="#/user">User Name</a></li>
             </ul>
         </nav>
     </div>

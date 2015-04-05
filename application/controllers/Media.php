@@ -22,4 +22,8 @@ class Media extends CI_Controller {
 	{
 		$this->load->view('media');
 	}
+
+	public function item() {
+		$this->load->view('media_item');
+	}
 }
