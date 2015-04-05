@@ -22,7 +22,7 @@
 				    				<div class="form-group">
 				    					<label class="col-sm-2 control-label">Fisier</label>
 				    					<div class="col-sm-7">
-				    						<input type="text" readonly="readonly" class="form-control" name="filename"/>
+				    						<input type="text" readonly="readonly" class="form-control" name="filename" value="osciloccocinum.wmv"/>
 				    					</div>	    					
 				    					<div class="col-sm-1">
 				    						<label for="file" class="btn btn-default">
@@ -36,8 +36,8 @@
 
 				    				<div class="form-group">
 				    					<label class="col-sm-2 control-label">Lungime</label>
-				    					<div class="col-sm-1">
-				    						<input type="text" readonly="" class="form-control" name="length"/>
+				    					<div class="col-sm-2">
+				    						<input type="text" readonly="" value="00:12:00" class="form-control" name="length"/>
 				    					</div>	    					
 				    				</div>
 				    				

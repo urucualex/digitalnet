@@ -22,7 +22,7 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#/user">User Name</a></li>
+                <li><a href="/users"><span class="glyphicon glyphicon-user"></span> Mihai Bors</a></li>
             </ul>
         </nav>
     </div>
