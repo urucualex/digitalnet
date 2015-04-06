@@ -64,6 +64,7 @@
 						<th>Label</th>
 						<th>Judet</th>
 						<th>Oras</th>
+						<th>Status</th>
 						<th>Spot curent</th>
 						<th>Ultimul mesaj</th>
 						<th>Ultimul update</th>
@@ -85,7 +86,29 @@
 						<td>Spitalul Elias 1</td>
 						<td>1, spital, maternitate</td>						
 						<td>Bucuresti</td>						
-						<td>Sector 1</td>						
+						<td>Sector 1</td>	
+						<td></td>					
+						<td>spot test</td>						
+						<td>14-mar-2015 14:23</td>						
+						<td>14-mar-2015 09:00</td>						
+						<td>23</td>						
+						<td>45:00</td>						
+						<td>10-mar-2015 no internet</td>	
+						<td>89.33.125.22</td>					
+						<td>192.168.0.1</td>					
+						<td>25:34:aa:4c:22:cc</td>					
+						<td></td>					
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>
+							<a href="/clients/item" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+						</td>
+						<td>Spitalul Elias 1</td>
+						<td>1, spital, maternitate</td>						
+						<td>Bucuresti</td>						
+						<td>Sector 1</td>	
+						<td><span class="glyphicon glyphicon-ok"></span></td>					
 						<td>spot test</td>						
 						<td>14-mar-2015 14:23</td>						
 						<td>14-mar-2015 09:00</td>						
@@ -106,6 +129,7 @@
 						<td>1, spital, maternitate</td>						
 						<td>Bucuresti</td>						
 						<td>Sector 1</td>						
+						<td><span class="glyphicon glyphicon-transfer"></span></td>
 						<td>spot test</td>						
 						<td>14-mar-2015 14:23</td>						
 						<td>14-mar-2015 09:00</td>						
@@ -125,27 +149,8 @@
 						<td>Spitalul Elias 1</td>
 						<td>1, spital, maternitate</td>						
 						<td>Bucuresti</td>						
-						<td>Sector 1</td>						
-						<td>spot test</td>						
-						<td>14-mar-2015 14:23</td>						
-						<td>14-mar-2015 09:00</td>						
-						<td>23</td>						
-						<td>45:00</td>						
-						<td>10-mar-2015 no internet</td>	
-						<td>89.33.125.22</td>					
-						<td>192.168.0.1</td>					
-						<td>25:34:aa:4c:22:cc</td>					
-						<td></td>					
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>
-							<a href="/clients/item" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
-						</td>
-						<td>Spitalul Elias 1</td>
-						<td>1, spital, maternitate</td>						
-						<td>Bucuresti</td>						
-						<td>Sector 1</td>						
+						<td>Sector 1</td>		
+						<td></td>				
 						<td>spot test</td>						
 						<td>14-mar-2015 14:23</td>						
 						<td>14-mar-2015 09:00</td>						

@@ -3,7 +3,7 @@
     $this->load->view('menu');
 ?>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="panel panel-default">
 		<div class="panel-body">	
 			<div role="tabpanel" class="panel">
@@ -96,6 +96,7 @@
 										<tr>
 											<th>#</th>
 											<th>Selecteaza</th>
+											<th>Upload-at</th>
 											<th>Pozitia in playlist</th>
 											<th>Nume</th>
 											<th>Label</th>
@@ -118,6 +119,7 @@
 												<label><input type="checkbox"/></label>
 												<a href="/media/edit/1" target="_blank" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
 											</td>
+											<td><span class="glyphicon glyphicon-ok"></span></td>
 											<td>1</td>
 											<td>Oscilococcinum iunie 2015</td>						
 											<td>reclama, medicamet, homeopatic</td>						
@@ -137,6 +139,7 @@
 											<td>
 												<label><input type="checkbox" /></label>
 											</td>
+											<td></td>
 											<td>1</td>
 											<td>Oscilococcinum iunie 2015</td>						
 											<td>reclama, medicamet, homeopatic</td>						
@@ -156,6 +159,7 @@
 											<td>
 												<label><input type="checkbox" /></label>
 											</td>
+											<td><span class="glyphicon glyphicon-ok"></span></td>											
 											<td>1</td>
 											<td>Oscilococcinum iunie 2015</td>						
 											<td>reclama, medicamet, homeopatic</td>						
@@ -175,6 +179,7 @@
 											<td>
 												<label><input type="checkbox" /></label>
 											</td>
+											<td></td>
 											<td>1</td>
 											<td>Oscilococcinum iunie 2015</td>						
 											<td>reclama, medicamet, homeopatic</td>						

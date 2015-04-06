@@ -26,6 +26,9 @@
 	margin-bottom: 10px;
 }
 
+.tab-content {
+	overflow: hidden;
+}
 
 
 

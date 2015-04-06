@@ -4,7 +4,7 @@
 ?>
 
 
-<div class="container">
+<div class="container-fluid">
 	<div class="panel panel-default">
 		<div class="panel-body">	
 			<div role="tabpanel" class="panel">
@@ -99,16 +99,14 @@
 				    </div>
 				    <div role="tabpanel" class="tab-pane" id="players">
 				    	<div class="row">
-					    	<div class="col-sm-2">
+					    	<div class="col-sm-4">
 					    		<a href="#" class="btn btn-primary">
 					    			<span class="glyphicon glyphicon-plus"></span>
-					    			Adauga playere
+					    			Adauga
 					    		</a>
-					    	</div>
-					    	<div class="col-sm-2">
 					    		<a href="#" class="btn btn-danger">
 					    			<span class="glyphicon glyphicon-remove"></span>
-					    			Sterge playere
+					    			Elimina
 					    		</a>
 					    	</div>											    		
 				    	</div>
@@ -117,6 +115,7 @@
 								<tr>
 									<th>#</th>
 									<th>Selecteaza</th>
+									<th>Spot upload-at</th>
 									<th>Nume</th>
 									<th>Label</th>
 									<th>Judet</th>
@@ -134,6 +133,7 @@
 									<td>
 										<input type="checkbox" name=""/>
 									</td>
+									<td><span class="glyphicon glyphicon-ok"></span></td>
 									<td>Spitalul Elias 1</td>
 									<td>1, spital, maternitate</td>						
 									<td>Bucuresti</td>						
@@ -149,6 +149,7 @@
 									<td>
 										<input type="checkbox" name=""/>
 									</td>
+									<td><span class="glyphicon glyphicon-ok"></span></td>
 									<td>Spitalul Elias 1</td>
 									<td>1, spital, maternitate</td>						
 									<td>Bucuresti</td>						
@@ -164,6 +165,7 @@
 									<td>
 										<input type="checkbox" name=""/>
 									</td>
+									<td></td>
 									<td>Spitalul Elias 1</td>
 									<td>1, spital, maternitate</td>						
 									<td>Bucuresti</td>						
@@ -179,6 +181,7 @@
 									<td>
 										<input type="checkbox" name=""/>
 									</td>
+									<td></td>
 									<td>Spitalul Elias 1</td>
 									<td>1, spital, maternitate</td>						
 									<td>Bucuresti</td>						
