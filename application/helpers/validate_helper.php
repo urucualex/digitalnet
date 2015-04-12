@@ -1,7 +1,5 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
-
-
 function validate(&$Data, $Rules = NULL)
 {
     /*
@@ -56,8 +54,9 @@ function validate(&$Data, $Rules = NULL)
         return true;
     }
 
-    //set column names, they are used in error messages
-    $Rules = $this->add_column_names_to_validation_rules($Rules, $Data);
+//set column names, they are used in error messages
+//$Rules = $this->add_column_names_to_validation_rules($Rules, $Data);
+
 //debug('Validation rules:', print_r($Rules, TRUE));        
     foreach ($Rules as $column=>$rules)
     {
