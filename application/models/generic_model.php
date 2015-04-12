@@ -5,7 +5,8 @@ class Generic_model extends CI_Model
 {
     protected $_model = 'generic';
 
-    protected $_validation_rules = array();
+    protected $_create_validation_rules = array();
+    protected $_update_validation_rules = array();
 
     protected $_table = '';
     protected $_search_table = '';
@@ -76,7 +77,11 @@ class Generic_model extends CI_Model
         $this->set_user_rights_from_config($this->_model);
 
         //add id to standatd validation
-        $this->_validation_rules = array_merge($this->id_validation_rules(), $this->_validation_rules);
+        if (!empty($this->-id_column)) 
+        {
+            $this->_create_validation_rules = array_merge($this->id_validation_rules(), $this->_create_validation_rules);
+            $this->_update_validation_rules = array_merge($this->id_validation_rules(), $this->_update_validation_rules);            
+        }
 
         return TRUE;
     }
@@ -730,7 +735,7 @@ class Generic_model extends CI_Model
             }
         }
 
-        if (!$this->validate($Data))
+        if (!$this->validate($Data, $this->_create_validation_rules))
         {
             return FALSE;
         }
@@ -882,6 +887,10 @@ class Generic_model extends CI_Model
             $where = array($this->id_column() => $Id);
         }
 
+        if ($Validation_rules == NULL) {
+            $Validation_rules = $this->_update_validation_rules;
+        }
+
         if (!$this->validate($Data, $Validation_rules))
         {
             return FALSE;
@@ -918,13 +927,12 @@ class Generic_model extends CI_Model
         return FALSE;
     }
 
-    public function update_where($Where, &$Data)
+    public function update_where($Where, &$Data, $Validation_rules = NULL)
     {
-
-        return $this->update_all($Where, $Data);
+        return $this->update_all($Where, $Data, $Validation_rules);
     }
 
-    public function update_all($Where, &$Data)
+    public function update_all($Where, &$Data, $Validation_rules = NULL)
     {
         if ($this->_verify_account and ($this->user_model->get('UserRole') > $this->_max_user_level_update))
         {
@@ -932,7 +940,11 @@ class Generic_model extends CI_Model
             return FALSE;
         }
 
-        if (!$this->validate($Data))
+        if ($Validation_rules == NULL) {
+            $Validation_rules = $this->_update_validation_rules;
+        }
+
+        if (!$this->validate($Data, $Validation_rules))
         {
             return FALSE;
         }
