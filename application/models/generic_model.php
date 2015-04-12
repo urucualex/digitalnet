@@ -68,7 +68,10 @@ class Generic_model extends CI_Model
 
         parent::__construct();
 
-        $this->load->model('user_model');
+        if ($this->_verify_account) 
+        {
+            $this->load->model('user_model');
+        }
 
         $this->set_user_rights_from_config($this->_model);
 
@@ -697,12 +700,11 @@ class Generic_model extends CI_Model
     {
         $function = 'create';
 
-        if ($this->user_model->get('UserRole') > $this->_max_user_level_create)
+        if ($this->_verify_account and ($this->user_model->get('UserRole') > $this->_max_user_level_create))
         {
             set_error(__('You are not allowed to create this type of data!'));
             return FALSE;
         }
-
 
         //handle ID_column if is set in $Data: update if it's valid, delete if not
         if (isset($Data[$this->_id_column]) and !$Create_with_id)
@@ -788,7 +790,7 @@ class Generic_model extends CI_Model
     {
         $function = 'read';
 
-        if ($this->user_model->get('UserRole') > $this->_max_user_level_read)
+        if ($this->_verify_account and ($this->user_model->get('UserRole') > $this->_max_user_level_read))
         {
             set_error(__('You are not allowed to access this type of data!'));
             return FALSE;
@@ -850,7 +852,7 @@ class Generic_model extends CI_Model
     public function update($Id, &$Data, $Validation_rules = NULL)
     {
         $function = 'update';
-        if ($this->user_model->get('UserRole') > $this->_max_user_level_update)
+        if ($this->_verify_account and ($this->user_model->get('UserRole') > $this->_max_user_level_update))
         {
             set_error(__('You are not allowed to edit this type of data'));
             return FALSE;
@@ -924,7 +926,7 @@ class Generic_model extends CI_Model
 
     public function update_all($Where, &$Data)
     {
-        if ($this->user_model->get('UserRole') > $this->_max_user_level_update)
+        if ($this->_verify_account and ($this->user_model->get('UserRole') > $this->_max_user_level_update))
         {
             set_error(__('You are not allowed to edit this type of data'));
             return FALSE;
@@ -1047,7 +1049,7 @@ class Generic_model extends CI_Model
                     );
 
                 $table_account_column = $this->$model->account_column();
-                if (!$this->user_model->is_superadmin() and !empty($table_account_column))
+                if ($this->_verify_account and !$this->user_model->is_superadmin() and !empty($table_account_column))
                 {
                     $join_rule .= sprintf(
                               ' AND %s.%s = %s'
@@ -1088,7 +1090,7 @@ debug('Use_join: ', $Use_join);
 //debug('Current max read level: ', $this->_max_user_level_read);
 
 
-        if ($this->user_model->get('UserRole') > $this->_max_user_level_read)
+        if ($this->_verify_account and ($this->user_model->get('UserRole') > $this->_max_user_level_read))
         {
             set_error(__('You are not allowed to access this type of data'));
             return FALSE;
@@ -1176,7 +1178,7 @@ debug('Use_join: ', $Use_join);
     {
         $function = 'delete';
 
-        if ($this->user_model->get('UserRole') > $this->_max_user_level_update)
+        if ($this->_verify_account and ($this->user_model->get('UserRole') > $this->_max_user_level_update))
         {
             set_error(__('You are not allowed to delete this type of data'));
             return FALSE;
@@ -1216,7 +1218,7 @@ debug('Use_join: ', $Use_join);
     {
         $function = "delete_all";
 
-        if ($this->user_model->get('UserRole') > $this->_max_user_level_update)
+        if ($this>_verify_account and ($this->user_model->get('UserRole') > $this->_max_user_level_update))
         {
             set_error(__('You are not allowed to delete this type of data'));
             return FALSE;
