@@ -1,5 +1,5 @@
 <header class="navbar navbar-static-top bs-docs-nav navbar-inverse navbar-fixed-top" id="top" role="banner">
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
             <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
