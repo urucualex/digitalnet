@@ -20,11 +20,35 @@
                 - last_error
                 - external_ip
                 - internal_ip
-                - comment1
+                - comment
 
-        
+        Media
+                - id
+                - name
+                - labels
+                - lastChange
+
+                - file
+                - duration
+                - playStart
+                - playEnd
+
+                - startDate
+                - endDate
+
+                - client
+                - playersCount
+                - type
+
+                - order
+
+                - comment
+
+        Player_Media
+                - idPlayer
+                - idMedia
+                - uploadTime
 */
-
 
 class Migration_Add_Players_Media extends CI_Migration {
 
