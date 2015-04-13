@@ -2,7 +2,7 @@
 
 //THIS CLASS MUST BE INHERITED TO BE USED
 
-class Generic_file_upload_model extends generic_model
+class Generic_File_Model extends Generic_Model
 {
 
     protected $_model = 'generic_file_upload';

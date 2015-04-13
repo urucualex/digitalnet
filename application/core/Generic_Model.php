@@ -1,7 +1,7 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
 
-class Generic_model extends CI_Model
+class Generic_Model extends CI_Model
 {
     protected $_model = 'generic';
 
@@ -13,7 +13,7 @@ class Generic_model extends CI_Model
     protected $_id_column = 'id';
     protected $_order_column = '';
     protected $_account_column = ''; //used for checking if the logged user can see this data
-    protected $_verify_account = TRUE; //enforce user's account = data's account
+    protected $_verify_account = FALSE; //enforce user's account = data's account
     protected $_max_user_level_create = 2; //administrator
     protected $_max_user_level_update = 2; //administrator
     protected $_max_user_level_read = 5; //viewer
@@ -69,15 +69,17 @@ class Generic_model extends CI_Model
 
         parent::__construct();
 
+        $this->load->database();
+        
         if ($this->_verify_account) 
         {
             $this->load->model('user_model');
+            $this->set_user_rights_from_config($this->_model);
         }
 
-        $this->set_user_rights_from_config($this->_model);
 
         //add id to standatd validation
-        if (!empty($this->-id_column)) 
+        if (!empty($this->_id_column)) 
         {
             $this->_create_validation_rules = array_merge($this->id_validation_rules(), $this->_create_validation_rules);
             $this->_update_validation_rules = array_merge($this->id_validation_rules(), $this->_update_validation_rules);            
@@ -810,9 +812,13 @@ class Generic_model extends CI_Model
 
         $where = array($this->_table.'.'.$this->_id_column => $Id);
 
+        $params = array(
+            'select' => $Select,
+            'where' => $where,
+            'join' => $Use_join
+        );
 
-
-        $result = $this->read_all(0, NULL, NULL, NULL, $Select, $where, $Use_join);
+        $result = $this->read_all($params);
         if (!empty($result))
         {
             return $result[0];
@@ -1087,8 +1093,17 @@ class Generic_model extends CI_Model
     }
 
     //get items list
-    public function read_all($Offset = 0, $Limit = NULL, $Order_by = NULL, $Sort_order = NULL, $Select = '*', &$Where = NULL, $Use_join = FALSE, $Distinct = false)
+    public function read_all( $Settings = ['offset' => 0, 'limit' => NULL, 'order_by' => NULL, 'sort_order' => 'asc', 'select' => '*', 'where' => NULL, 'join' => FALSE, 'distinct' => FALSE])
     {
+        $Offset = $Settings['offset'];
+        $Limit = $Settings['limit'];
+        $Order_by = $Settings['order_by'];
+        $Sort_order = $Settings['sort_order'];
+        $Select = $Settings['select'];
+        $Where = $Settings['where'];
+        $Use_join = $Settings['join'];
+        $Distinct = $Settings['distinct'];
+
 /*
 debug('Select: ', $Select);
 debug('Where: ', $Where);
