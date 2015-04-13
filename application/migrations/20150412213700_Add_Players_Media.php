@@ -20,6 +20,13 @@
                 - last_error
                 - external_ip
                 - internal_ip
+                - mfStart
+                - mfEnd
+                - satStart
+                - satEnd
+                - sunStart
+                - sunEnd
+
                 - comment
 
         Media
@@ -54,6 +61,7 @@ class Migration_Add_Players_Media extends CI_Migration {
 
         public function up()
         {
+                $this->dbforge->drop_table('players', TRUE);
                 $this->dbforge->add_field(array(
                         'playerId' => array(
                                 'type' => 'INT',
@@ -67,7 +75,8 @@ class Migration_Add_Players_Media extends CI_Migration {
                         'playerActive' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '1'
+                                'constraint' => '1', 
+                                'default' => '1'
                         ),
                         'playerLabels' => array(
                                 'type' => 'VARCHAR',
@@ -113,12 +122,14 @@ class Migration_Add_Players_Media extends CI_Migration {
                         'playlistLengthToday' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '8'
+                                'constraint' => '8', 
+                                'default' => '0'
                         ),                        
                         'playlistCountToday' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '8'
+                                'constraint' => '8', 
+                                'default' => '0'
                         ),                        
                         'lastError' => array(
                                 'type' => 'VARCHAR',
@@ -134,7 +145,43 @@ class Migration_Add_Players_Media extends CI_Migration {
                         'internalIp' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '100'
-                        ),                        
+                        ),             
+                       'mfStart' => array(
+                                'type' => 'INT',
+                                'unsigned' => TRUE,
+                                'constraint' => '2', 
+                                'default' => '8'
+                        ),                                     
+                       'mfEnd' => array(
+                                'type' => 'INT',
+                                'unsigned' => TRUE,
+                                'constraint' => '2', 
+                                'default' => '20'
+                        ),                                     
+                       'satStart' => array(
+                                'type' => 'INT',
+                                'unsigned' => TRUE,
+                                'constraint' => '2', 
+                                'default' => '8'
+                        ),                                     
+                       'satEnd' => array(
+                                'type' => 'INT',
+                                'unsigned' => TRUE,
+                                'constraint' => '2', 
+                                'default' => '20'
+                        ),                                     
+                       'sunStart' => array(
+                                'type' => 'INT',
+                                'unsigned' => TRUE,
+                                'constraint' => '2', 
+                                'default' => '8'
+                        ),                                     
+                       'sunEnd' => array(
+                                'type' => 'INT',
+                                'unsigned' => TRUE,
+                                'constraint' => '2', 
+                                'default' => '20'
+                        ),                                     
                         'comment' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '1000'
@@ -144,7 +191,7 @@ class Migration_Add_Players_Media extends CI_Migration {
                 $this->dbforge->create_table('players');
 
 
-
+                $this->dbforge->drop_table('media', TRUE);
                 $this->dbforge->add_field(array(
                         'mediaId' => array(
                                 'type' => 'INT',
@@ -169,18 +216,27 @@ class Migration_Add_Players_Media extends CI_Migration {
                         'duration' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '8'
+                                'constraint' => '8', 
+                                'default' => '0'
                         ),
                         'playStart' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '8'
+                                'constraint' => '8', 
+                                'default' => '0'
                         ),
                         'playEnd' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '8'
+                                'constraint' => '8', 
+                                'default' => '0'
                         ),
+                        'useDateInterval' => array(
+                                'type' => 'INT',
+                                'unsigned' => TRUE,
+                                'constraint' => '1', 
+                                'default' => '0'
+                        ),                        
                         'startDate' => array(
                                 'type' => 'DATE'
                         ),
@@ -194,7 +250,8 @@ class Migration_Add_Players_Media extends CI_Migration {
                         'playersCount' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '8'
+                                'constraint' => '8', 
+                                'default' => '0'
                         ),
                         'type' => array(
                                 'type' => 'VARCHAR',
@@ -203,7 +260,8 @@ class Migration_Add_Players_Media extends CI_Migration {
                         'order' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '8'
+                                'constraint' => '8', 
+                                'default' => '0'
                         ),
                         'comment' => array(
                                 'type' => 'VARCHAR',
@@ -213,6 +271,7 @@ class Migration_Add_Players_Media extends CI_Migration {
                 $this->dbforge->add_key('mediaId', TRUE);
                 $this->dbforge->create_table('media');
 
+                $this->dbforge->drop_table('media_player', TRUE);
                 $this->dbforge->add_field(array(
                         'mediaId' => array(
                                 'type' => 'INT',
@@ -223,18 +282,21 @@ class Migration_Add_Players_Media extends CI_Migration {
                                 'unsigned' => TRUE,
                         ),
                         'uploaded' => array(
-                                'type' => 'TIMESTAMP'
+                                'type' => 'TIMESTAMP',
+                                'null' => TRUE
                         )
                 ));                                    
                 $this->dbforge->add_key('mediaId');
                 $this->dbforge->add_key('playerId');
                 $this->dbforge->create_table('media_player');
+
+                $this->db->
         }
 
         public function down()
         {
-                $this->dbforge->drop_table('players');
-                $this->dbforge->drop_table('media');
-                $this->dbforge->drop_table('media_player');
+                $this->dbforge->drop_table('players', TRUE);
+                $this->dbforge->drop_table('media', TRUE);
+                $this->dbforge->drop_table('media_player', TRUE);
         }
 }
