@@ -47,6 +47,48 @@ class Player_model extends Generic_model
                           'column_name' => 'Observatii'
                         , 'trim' => true
                     )
+                , 'mfStart' => array(
+                          'column_name' => 'Ora de start luni-vineri'
+                        , 'trim' => true    
+                        , 'integer' => true
+                        , 'min' => 0
+                        , 'max' => 23                
+                    )
+                , 'mfEnd' => array(
+                          'column_name' => 'Ora de inchidere luni-vineri'
+                        , 'trim' => true    
+                        , 'integer' => true
+                        , 'min' => 0
+                        , 'max' => 23                    
+                    )
+                , 'satStart' => array(
+                          'column_name' => 'Ora de start sambata'
+                        , 'trim' => true    
+                        , 'integer' => true
+                        , 'min' => 0
+                        , 'max' => 23                
+                    )
+                , 'satEnd' => array(
+                          'column_name' => 'Ora de inchidere sambata'
+                        , 'trim' => true    
+                        , 'integer' => true
+                        , 'min' => 0
+                        , 'max' => 23                    
+                    )
+                , 'sunStart' => array(
+                          'column_name' => 'Ora de start duminica'
+                        , 'trim' => true    
+                        , 'integer' => true
+                        , 'min' => 0
+                        , 'max' => 23                
+                    )
+                , 'sunEnd' => array(
+                          'column_name' => 'Ora de inchidere duminica'
+                        , 'trim' => true    
+                        , 'integer' => true
+                        , 'min' => 0
+                        , 'max' => 23                    
+                    )                                    
             );
 
         parent::__construct();

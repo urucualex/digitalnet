@@ -229,41 +229,85 @@
 				    <div role="tabpanel" class="tab-pane" id="settings">
 						<div class="row">
 				    		<div class="col-sm-12">	
-				    			<form class="form-horizontal">
+				    			<form class="form-horizontal" action="/players/update" method="post" data-ajax="true">
+				    				<input 	type="hidden" 
+				    						name="id" 
+				    						value="<?=(array_key_exists('playerId', $player)) ? $player['playerId'] : ''?>"
+				    				/>
 				    				<div class="form-group">
-				    					<label class="col-sm-2 control-label">Setari</label>
+				    					<label class="col-sm-2 control-label">Code</label>
 				    					<div class="col-sm-8">
-				    						<textarea class="form-control" name="settings" rows="8"></textarea>
+				    						<input 	type="text" 
+				    								class="form-control" 
+				    								name="code" 
+				    								value="<?=(array_key_exists('code', $player)) ? $player['code'] : ''?>"
+				    						/>
 				    					</div>	    					
 				    				</div>
 
 				    				<div class="form-group">
 				    					<label class="col-sm-2 control-label">Luni - Vineri</label>
-				    					<div class="col-sm-1">
-				    						<input type="number" min="0" max="24" class="form-control" name="mf_start"/>
+				    					<div class="col-sm-2">
+				    						<input 	type="number" 
+				    								min="0" 
+				    								max="23" 
+				    								class="form-control" 
+				    								name="mfStart"
+				    								value="<?=(array_key_exists('mfStart', $player)) ? $player['mfStart'] : '8'?>"				    								
+				    						/>
 				    					</div>		
-				    					<div class="col-sm-1">
-				    						<input type="number" min="0" max="24" class="form-control" name="mf_end"/>
+				    					<div class="col-sm-2">
+				    						<input 	type="number" 
+				    								min="0" 
+				    								max="23" 
+				    								class="form-control" 
+				    								name="mfEnd"
+				    								value="<?=(array_key_exists('mfEnd', $player)) ? $player['mfEnd'] : '20'?>"				    								
+				    						/>
 				    					</div>	
 				    				</div>
 				    				
 				    				<div class="form-group">
 				    					<label class="col-sm-2 control-label">Sambata</label>
-				    					<div class="col-sm-1">
-				    						<input type="number" min="0" max="24" class="form-control" name="sat_start"/>
+				    					<div class="col-sm-2">
+				    						<input 	type="number" 
+				    								min="0" 
+				    								max="23" 
+				    								class="form-control" 
+				    								name="satStart"
+				    								value="<?=(array_key_exists('satStart', $player)) ? $player['satStart'] : '8'?>"				    								
+				    						/>
 				    					</div>				
-				    					<div class="col-sm-1">
-				    						<input type="number" min="0" max="24" class="form-control" name="sat_end"/>
+				    					<div class="col-sm-2">
+				    						<input 	type="number" 
+				    								min="0" 
+				    								max="23" 
+				    								class="form-control" 
+				    								name="satEnd"
+				    								value="<?=(array_key_exists('satEnd', $player)) ? $player['satEnd'] : '20'?>"				    								
+				    						/>
 				    					</div>	    					
 				    				</div>
 				    				
 				    				<div class="form-group">
 				    					<label class="col-sm-2 control-label">Duminica</label>
-				    					<div class="col-sm-1">
-				    						<input type="number" min="0" max="24" class="form-control" name="sun_start"/>
+				    					<div class="col-sm-2">
+				    						<input 	type="number" 
+				    								min="0" 
+				    								max="23" 
+				    								class="form-control" 
+				    								name="sunStart"
+				    								value="<?=(array_key_exists('sunStart', $player)) ? $player['sunStart'] : '8'?>"				    								
+				    						/>
 				    					</div>   					
-				    					<div class="col-sm-1">
-				    						<input type="number" min="0" max="24" class="form-control" name="sun_end"/>
+				    					<div class="col-sm-2">
+				    						<input 	type="number" 
+				    								min="0" 
+				    								max="23" 
+				    								class="form-control" 
+				    								name="sunEnd"
+				    								value="<?=(array_key_exists('sunEnd', $player)) ? $player['sunEnd'] : '20'?>"				    								
+				    						/>
 				    					</div>	    					
 				    				</div>
 				    				<div class="col-sm-10 col-sm-offset-1">

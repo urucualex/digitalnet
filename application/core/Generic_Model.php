@@ -757,15 +757,15 @@ class Generic_Model extends CI_Model
         {
             //debug('DB Error number: ',$this->db->_error_number());
             //debug('DB Error text: ',$this->db->_error_message());
-
-            switch ($this->db->_error_number())
+            $error = $this->db->error();
+            switch ($error['code'])
             {
                 case 1062:
                     set_error(__("The record is not unique!"));
                     break;
                 default:
-                    $this->error($function, $this->db->_error_message(), $this->db->last_query());
-                    set_error($this->db->_error_message());
+                    $this->error($function, $error['message'], $this->db->last_query());
+                    set_error($error['message']);
                     return false;
             }
         }
@@ -912,14 +912,15 @@ class Generic_Model extends CI_Model
             //debug('DB Error number: ',$this->db->_error_number());
             //debug('DB Error text: ',$this->db->_error_message());
 
-            switch ($this->db->_error_number())
+            $error = $this->db->error();
+            switch ($error['code'])
             {
                 case 1062:
                     set_error(__("The record is not unique!"));
                     break;
                 default:
-                    $this->error($function, $this->db->_error_message(), $this->db->last_query());
-                    set_error($this->db->_error_message());
+                    $this->error($function, $error['message'], $this->db->last_query());
+                    set_error($error['message']);
                     return false;
             }
         }
@@ -976,14 +977,14 @@ class Generic_Model extends CI_Model
         {
             //debug('DB Error number: ',$this->db->_error_number());
             //debug('DB Error text: ',$this->db->_error_message());
-
-            switch ($this->db->_error_number())
+            $error = $this->db->error();
+            switch ($error['code'])
             {
                 case 1062:
                     set_error(__("The record is not unique!"));
                     break;
                 default:
-                    set_error($this->db->_error_message());
+                    set_error($error['message']);
                     return false;
             }
         }
@@ -1223,13 +1224,14 @@ debug('Use_join: ', $Use_join);
             $result = $this->db->where($where)->delete($this->table());
             if (!$result)
             {
-                switch ($this->db->_error_number())
+                $error = $this->db->error();
+                switch ($error['code'])
                 {
                     case '1451':
                         set_error(__("Cannot delete the item! Please delete all it's depending items first."));
                         break;
 
-                    echo($this->db->_error_message());
+                    echo($error['message']);
                 }
             }
             $this->db->db_debug = $last_db_debug_state;
@@ -1277,13 +1279,14 @@ debug('Use_join: ', $Use_join);
         $result = $this->db->where($Where, NULL, !$__do_not_escape)->delete($this->table());
         if (!$result)
         {
-            switch ($this->db->_error_number())
+            $error = $this->db->error();
+            switch ($error['code'])
             {
                 case '1451':
                     set_error(__("Cannot delete an item! Please delete all depending items first."));
                     break;
 
-                echo($this->db->_error_message());
+                echo($error['message']);
             }
         }
         $this->db->db_debug = $last_db_debug_state;
