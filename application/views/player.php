@@ -18,45 +18,72 @@
 				    <div role="tabpanel" class="tab-pane active" id="properties">
 				    	<div class="row">
 				    		<div class="col-sm-12">
-				    			<form class="form-horizontal">
+				    			<form class="form-horizontal" action="/players/update" data-ajax="true">
+				    				<input type="hidden" name="id" value="<?=(array_key_exists('playerId', $player) and ($player['playerId'] > 0))? $player['playerId'] : ''?>">
 				    				<div class="form-group">
 				    					<label class="col-sm-2 control-label">Nume</label>
 				    					<div class="col-sm-8">
-				    						<input type="text" placeholder="ex: Spitalul Judetean Maternitate" class="form-control" name="name"/>
+				    						<input 	type="text" 
+				    								placeholder="ex: Spitalul Judetean Maternitate" 
+				    								class="form-control" 
+				    								name="playerName"
+				    								value="<?=(array_key_exists('playerName', $player)) ? $player['playerName'] : ''?>"
+				    						/>
 				    					</div>	    					
 				    				</div>
 
 				    				<div class="form-group">
 				    					<label class="col-sm-2 control-label">Etichete</label>
 				    					<div class="col-sm-8">
-				    						<input type="text" placeholder="ex: spital, maternitate, ardeal" class="form-control" name="label"/>
+				    						<input 	type="text" 
+				    								placeholder="ex: spital, maternitate, ardeal" 
+				    								class="form-control" 
+				    								name="playerLabels"
+				    								value="<?=(array_key_exists('playerLabels', $player)) ? $player['playerLabels'] : ''?>"
+				    						/>
 				    					</div>	    					
 				    				</div>
 				    				
 				    				<div class="form-group">
 				    					<label class="col-sm-2 control-label">Judet</label>
 				    					<div class="col-sm-8">
-				    						<input type="text" placeholder="ex: Timis" class="form-control" name="county"/>
+				    						<input 	type="text" 
+				    								placeholder="ex: Timis" 
+				    								class="form-control"
+				    								name="county"
+				    								value="<?=(array_key_exists('county', $player)) ? $player['county'] : ''?>"
+				    						/>
 				    					</div>	    					
 				    				</div>
 				    				
 				    				<div class="form-group">
 				    					<label class="col-sm-2 control-label">Oras</label>
 				    					<div class="col-sm-8">
-				    						<input type="text" placeholder="ex: Timisoara" class="form-control" name="city"/>
+				    						<input 	type="text" 
+				    								placeholder="ex: Timisoara" 
+				    								class="form-control" 
+				    								name="city"
+				    								value="<?=(array_key_exists('city', $player)) ? $player['city'] : ''?>"
+				    						/>
 				    					</div>	    					
 				    				</div>
 				    				
 				    				<div class="form-group">
 				    					<label class="col-sm-2 control-label">Localizare</label>
 				    					<div class="col-sm-8">
-				    						<input type="text" placeholder="ex: sala de asteptare, etaj 1" class="form-control" name="location"/>
+				    						<input 	type="text" 
+				    								placeholder="ex: sala de asteptare, etaj 1" 
+				    								class="form-control" 
+				    								name="location"
+				    								value="<?=(array_key_exists('location', $player)) ? $player['location'] : ''?>"
+				    						/>
 				    					</div>	    					
 				    				</div>
 
 				    				<div class="form-group">
+				    					<input type="hidden" name="playerActive" value="0"/>
 				    					<label class="col-sm-2 control-label">
-				    							<input type="checkbox" name="active"> Activ
+				    							<input type="checkbox" name="playerActive" value="1" <?=(array_key_exists('playerActive', $player) and ($player['playerActive'] > 0)) ? 'checked="checked"' : ''?>> Activ
 				    					</label>    					
 				    				</div>
 

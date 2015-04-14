@@ -59,8 +59,13 @@ class Generic_Controller extends CI_Controller {
 
 		if ($Id > 0) {
 			$this->data[$item_name] = $this->$model_name->read($Id);
+			if (!$this->data[$item_name]) {
+				exit;
+			}
+		} else {
+			$this->data[$item_name] = [];
 		}
-
+debug('Item data', $this->data);
 		$this->load->view($this->_item_name, $this->data);
 	}
 
@@ -73,14 +78,13 @@ debug('POST: ', $data);
 		{
 			$model_name = $this->_model;
 			$item_name = $this->_item_name;
-			$id_column = $this->$model_name->id_column();
 
-			$id = $data[$id_column];
-			unset($data[$id_column]);
+			$id = $data['id'];
+			unset($data['id']);
 
 			if ($id > 0)
 			{
-				if ($this->contact_model->update($id, $data))
+				if ($this->$model_name->update($id, $data))
 				{
 					$this->_result = array(
 							  'status' => 'ok'
@@ -95,7 +99,7 @@ debug('POST: ', $data);
 			}
 			else
 			{
-				if ($new_id = $this->contact_model->create($data))
+				if ($new_id = $this->$model_name->create($data))
 				{
 					$this->_result = array(
 							  'status' => 'ok'

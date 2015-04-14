@@ -1095,14 +1095,14 @@ class Generic_Model extends CI_Model
     //get items list
     public function read_all( $Settings = ['offset' => 0, 'limit' => NULL, 'order_by' => NULL, 'sort_order' => 'asc', 'select' => '*', 'where' => NULL, 'join' => FALSE, 'distinct' => FALSE])
     {
-        $Offset = $Settings['offset'];
-        $Limit = $Settings['limit'];
-        $Order_by = $Settings['order_by'];
-        $Sort_order = $Settings['sort_order'];
-        $Select = $Settings['select'];
-        $Where = $Settings['where'];
-        $Use_join = $Settings['join'];
-        $Distinct = $Settings['distinct'];
+        $Offset = (array_key_exists('offset', $Settings) ? $Settings['offset'] : 0);
+        $Limit = (array_key_exists('limit', $Settings) ? $Settings['limit'] : NULL);
+        $Order_by = (array_key_exists('order_by', $Settings) ? $Settings['order_by'] : NULL);
+        $Sort_order = (array_key_exists('sort_order', $Settings) ? $Settings['sort_order'] : 'asc');
+        $Select = (array_key_exists('select', $Settings) ? $Settings['select'] : '*');
+        $Where = (array_key_exists('where', $Settings) ? $Settings['where'] : NULL);
+        $Use_join = (array_key_exists('join', $Settings) ? $Settings['join'] : FALSE);
+        $Distinct = (array_key_exists('distinct', $Settings) ? $Settings['distinct'] : FALSE);
 
 /*
 debug('Select: ', $Select);

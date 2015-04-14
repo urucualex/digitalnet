@@ -7,13 +7,8 @@ class Player_model extends Generic_model
     {
         $this->_model = 'player';
         $this->_table = 'players';
-        $this->_id_column = 'idPlayer';
-        $this->_join = array(
-                  array(
-                      'model' => 'indicator_type_model'
-                    , 'column' => 'IndicatorType'
-                )
-            );
+        $this->_id_column = 'playerId';
+
 
         $this->_create_validation_rules = array(
                 'playerName' => array(
