@@ -219,6 +219,12 @@ class Migration_Add_Players_Media extends CI_Migration {
                                 'constraint' => '8', 
                                 'default' => '0'
                         ),
+                        'useSection' => array(
+                                'type' => 'INT',
+                                'unsigned' => TRUE,
+                                'constraint' => '1', 
+                                'default' => '0'
+                        ),                        
                         'playStart' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,

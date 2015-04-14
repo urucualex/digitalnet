@@ -1,20 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Media extends CI_Controller {
+class Media extends Generic_Controller {
+	public $_item_name = 'media';
+	public $_model = 'media_model';
+
 	public function __construct() {
 		parent::__construct();
-
-		$this->data = [
-			'current_page' => 'media'
-		];
-	}
-
-	public function index() {
-		$this->load->view('media', $this->data);
-	}
-
-	public function item() {
-		$this->load->view('media_item', $this->data);
 	}
 }
