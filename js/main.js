@@ -1,4 +1,5 @@
 // On document load
+var mediaTable;
 $(function(){
 	$(document).on('submit', '[data-ajax=true]', function(ev) {
 		ev.preventDefault();
@@ -9,7 +10,7 @@ $(function(){
 	$('#main-media-table').each( function(){
 
 		console.log('main-media-table', this);
-		var table = new DinamicTable( {
+		mediaTable = new DinamicTable( {
 			container: this,
 			url: '/media/items',
 			source: 'medias',
@@ -132,7 +133,7 @@ var DinamicTable = function(settings) {
 	}
 
 	var headRenderer = function(columnData) {
-		return '<th style="width: ' + columnData['width'] + '">'+ columnData['name'] +' <span class="glyphicon glyphicon-triangle-up"></span></th>'
+		return '<th style="width: ' + columnData['width'] + '">' + columnData['name'] + '</th>';
 	}
 
 	var defaultSettings = {
@@ -177,95 +178,155 @@ var DinamicTable = function(settings) {
 	init();
 	refreshData();
 
-	//----------------------------------- Private functions --------------------------------
-
-	function refreshData() {
-		var request = $.ajax({
-			url: settings.url,
-			data: {timeStamp: lastSync},
-			type: 'POST',
-			dataType: 'json',
-		});
-
-		request.done(function(data) {
-			syncData(data);
-			render();
-		});
-	}
-
-	function syncData(data) {
-		if (!_.isArray(data)) {
-			console.error('Data for table is not array', data);
-			return;
+	//----------------------------------- Public functions ---------------------------------
+		this.getSelectedRowsIndex = function() {
+			var selectedRowElements = tableElement.find('tr.selected');
+			var result = [];
+			selectedRowElements.each(function(index, rowElement) {
+				var rowIndex = $(rowElement).attr('data-row-index');
+				result.push(rowIndex);
+			});
+			return result;
 		}
 
-		if (rows.length == 0) {
-			rows = data;
-		}
-		else {
-			// for each new data
-			data.forEach(function(item, index) {
-				// find row by id
-				var rowData = {};
-				rowData[settings.idColumn] = item[settings.idColumn];
-				var rowIndex = _.findIndex(rows, rowData);
-
-				// if found update data
-				if (rowIndex > -1) {
-					rows[rowIndex] = item;
+		this.getRowsByIndex = function (indexes) {
+			if (!_.isArray(indexes)) {
+				if (isNaN(indexes)) {
+					return [];
 				}
-				else {
-					// add new row
-					rows.push(item);
-				}
-			});			
-		}
-	}
-
-	function insertRow(data, index) {
-		//if (index === undefined)
-	};
-
-	function render() {
-		if (!tableElement || (tableElement.length < 1)) {
-			console.error('Table does not exist. Not initialized or container does not exist');
-			return false;
-		}
-
-		var tableHeader = tableElement.find('thead').empty().append('<tr></tr>');
-		settings.columns.forEach(function (column, index) {
-			if (column.active) {
-				tableHeader.append(column.headRenderer(column));
+				indexes = [indexes];
 			}
-		});
-
-		var tableBody = tableElement.find('tbody');
-		tableBody.empty();
-		rows.forEach(function(row, rowIndex) {
-			var newRow = $('<tr></tr>')
-			settings.columns.forEach(function (column, colIndex) {
-				if (column.active) {
-					newRow.append(column.cellRenderer(rowIndex, colIndex, row[column.source]));
+			var result = [];
+			indexes.forEach(function(index) {
+				if (rows[index]) {
+					result.push(rows[index]);
 				}
 			});
-			var tableRow = tableBody.append(newRow);
-		});
-	}
 
-	function init() {
-		settings.container = $(settings.container);
-		if (settings.container.length < 1) {
-			console.error('Table container could not be found!', settings.container);
-			return;
+			return result;
 		}
 
-		if (settings.container.prop('tagName') == 'TABLE') {
-			tableElement = settings.container;
+		this.getSelectedRows = function() {
+			var selectedRowElements = tableElement.find('tr.selected');
+			var result = [];
+			selectedRowElements.each(function(index, rowElement) {
+				var rowIndex = $(rowElement).attr('data-row-index');
+				result.push(rows[rowIndex]);
+			});
+			return result;
 		}
-		else {
-			tableElement = $(settings.container).append('<table><thead></thead><tbody></tbody></table>');
+
+		this.moveRow = function(fromIndex, toIndex) {
+			
 		}
-	}
+
+	//----------------------------------- Private functions --------------------------------
+
+		function refreshData() {
+			var request = $.ajax({
+				url: settings.url,
+				data: {timeStamp: lastSync},
+				type: 'POST',
+				dataType: 'json',
+			});
+
+			request.done(function(data) {
+				syncData(data);
+				render();
+			});
+		}
+
+		function syncData(data) {
+			if (!_.isArray(data)) {
+				console.error('Data for table is not array', data);
+				return;
+			}
+
+			if (rows.length == 0) {
+				rows = data;
+			}
+			else {
+				// for each new data
+				data.forEach(function(item, index) {
+					// find row by id
+					var rowData = {};
+					rowData[settings.idColumn] = item[settings.idColumn];
+					var rowIndex = _.findIndex(rows, rowData);
+
+					// if found update data
+					if (rowIndex > -1) {
+						rows[rowIndex] = item;
+					}
+					else {
+						// add new row
+						rows.push(item);
+					}
+				});			
+			}
+		}
+
+		function insertRow(data, index) {
+			//if (index === undefined)
+		};
+
+		function render() {
+			if (!tableElement || (tableElement.length < 1)) {
+				console.error('Table does not exist. Not initialized or container does not exist');
+				return false;
+			}
+
+			var tableHeader = tableElement.find('thead').empty().append('<tr></tr>');
+			settings.columns.forEach(function (column, index) {
+				if (column.active) {
+					tableHeader.append(column.headRenderer(column));
+				}
+			});
+
+			var tableBody = tableElement.find('tbody');
+			tableBody.empty();
+			rows.forEach(function(row, rowIndex) {
+				var newRow = $('<tr data-row-index="' + rowIndex + '"></tr>')
+				settings.columns.forEach(function (column, colIndex) {
+					if (column.active) {
+						newRow.append(column.cellRenderer(rowIndex, colIndex, row[column.source]));
+					}
+				});
+				var tableRow = tableBody.append(newRow);
+			});
+		}
+
+		function init() {
+			settings.container = $(settings.container);
+			if (settings.container.length < 1) {
+				console.error('Table container could not be found!', settings.container);
+				return;
+			}
+
+			if (settings.container.prop('tagName') == 'TABLE') {
+				tableElement = settings.container;
+			}
+			else {
+				tableElement = $(settings.container).append('<table><thead></thead><tbody></tbody></table>');
+			}
+
+			tableElement.on('click', 'tr', function() {
+				if (_.isFunction(settings.onRowClick) && settings.onRowClick() === false) {
+					return;
+				}
+				var $this = $(this);
+
+				if ($this.hasClass('selected')) {
+					$this.removeClass('selected');
+				}
+				else {
+					$this.addClass('selected');
+				}
+
+				if (_.isFunction(settings.onRowClicked)) {
+					settings.onRowClicked();
+				}
+			});
+		}
 
 }
 

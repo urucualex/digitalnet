@@ -30,6 +30,15 @@
 	overflow: hidden;
 }
 
+table.table th { 
+	padding-left: 3px;
+	padding-right: 3px;
+}
 
+table.table tr:hover {
+	background-color: #f0f0f0;
+}
 
-
+table.table tr.selected {
+	background-color: #e0e0f0;
+}
