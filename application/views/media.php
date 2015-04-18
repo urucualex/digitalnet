@@ -25,19 +25,22 @@
 			    								value="<?=(array_key_exists('mediaId', $media)) ? $media['mediaId'] : ''?>"
 				    					/>
 				    					<label class="col-sm-2 control-label">Fisier</label>
-				    					<div class="col-sm-7">
+				    					<div class="col-sm-4">
 				    						<input 	type="text" 
 				    								readonly="readonly" 
 				    								class="form-control" 
 				    								name="file" 
 				    								value="<?=(array_key_exists('file', $media)) ? $media['file'] : ''?>"
 				    						/>
-				    					</div>	    					
-				    					<div class="col-sm-1">
+				    					</div>	    	
+				    					<div class="col-sm-2">
+				    						<button type="button" class="btn btn-default">
+				    							<span class="glyphicon glyphicon-play"></span>
+				    						</button>
 				    						<label for="file" class="btn btn-default">
 				    							<span class="glyphicon glyphicon-upload"></span>
 				    						</label>
-			    							<div style="visibility: hidden; display: inline-block">
+			    							<div style="visibility: hidden; display: inline-block; width: 20px;">
 			    								<input 	id="file" 
 			    										type="file" 
 			    										name="filename"
@@ -59,7 +62,7 @@
 				    					</div>	    					
 				    				</div>
 				    				
-				    				<div class="form-group">
+				    				<!--div class="form-group">
 				    					<input type="hidden" name="useSection" value="0">
 				    					<label class="col-sm-2 control-label">
 				    						<input 	type="checkbox" 
@@ -82,7 +85,7 @@
 				    								value="<?=(array_key_exists('playEnd', $media)) ? $media['playEnd'] : ''?>"
 				    						/>
 				    					</div>	    					
-				    				</div>
+				    				</div-->
 				    				
 				    				
 				    				<div class="form-group">
