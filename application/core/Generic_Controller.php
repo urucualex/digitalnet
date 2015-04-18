@@ -41,7 +41,7 @@ class Generic_Controller extends CI_Controller {
 		$item_name = $this->_item_name;
 		$items = $this->$model_name->read_all();
 
-		if ($this->input->is_ajax_request) {
+		if ($this->input->is_ajax_request()) {
 			echo json_encode($items);
 		}
 		else {
