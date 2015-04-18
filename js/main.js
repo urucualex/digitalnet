@@ -6,7 +6,6 @@ $(function(){
 		submitForm(this);
 	});
 
-
 	$('#main-media-table').each( function(){
 
 		console.log('main-media-table', this);
@@ -123,10 +122,11 @@ $(function(){
 */
 
 var DinamicTable = function(settings) {
-
+	self = this;
 	var lastSync = 0;
 	var rows = [];
 	var tableElement;
+	var tableIsFocused = false;
 
 	var cellRenderer = function(row, column, value, rowData) {
 		return '<td>' + value + '</td>';
@@ -184,7 +184,7 @@ var DinamicTable = function(settings) {
 			var result = [];
 			selectedRowElements.each(function(index, rowElement) {
 				var rowIndex = $(rowElement).attr('data-row-index');
-				result.push(rowIndex);
+				result.push(parseInt(rowIndex, 10));
 			});
 			return result;
 		}
@@ -217,8 +217,32 @@ var DinamicTable = function(settings) {
 		}
 
 		this.moveRow = function(fromIndex, toIndex) {
-			
+			if ((fromIndex < 0) || (toIndex < 0) || (fromIndex >= rows.length) || (toIndex >= rows.length) || (fromIndex == toIndex) || (rows.length < 2)) {
+				return false;
+			}
+			//move row data
+			var row = rows[fromIndex];
+			rows.splice(fromIndex, 1);
+			rows.splice(toIndex, 0, row);
+			// move rows
+			var rowToMove = tableElement.find('[data-row-index=' + fromIndex + ']');
+
+			var targetRow = tableElement.find('[data-row-index=' + toIndex + ']');
+
+			if (fromIndex > toIndex) {
+				rowToMove.insertBefore(targetRow);
+			}
+			else {
+				rowToMove.insertAfter(targetRow);				
+			}
+
+			refreshIndexes();
+			return true;
 		}
+
+		function insertRow(data, index) {
+			//if (index === undefined)
+		};
 
 	//----------------------------------- Private functions --------------------------------
 
@@ -265,10 +289,6 @@ var DinamicTable = function(settings) {
 			}
 		}
 
-		function insertRow(data, index) {
-			//if (index === undefined)
-		};
-
 		function render() {
 			if (!tableElement || (tableElement.length < 1)) {
 				console.error('Table does not exist. Not initialized or container does not exist');
@@ -292,6 +312,38 @@ var DinamicTable = function(settings) {
 					}
 				});
 				var tableRow = tableBody.append(newRow);
+			});
+		}
+
+		function refreshIndexes() {
+			var rowElements = tableElement.find('[data-row-index]');
+
+			rowElements.each(function(index) {
+				$(this).attr('data-row-index', index);
+			});
+		}
+
+		function moveSelectedRowsDown() {
+			var cont = true; 
+			var selectedRowsIndex = self.getSelectedRowsIndex();
+			selectedRowsIndex.reverse()
+			
+
+			selectedRowsIndex.forEach(function(rowIndex) {
+				if (cont) {
+					cont = self.moveRow(rowIndex, 1 + rowIndex);
+				}
+			});
+		}
+
+		function moveSelectedRowsUp() {
+			var cont = true;
+			var selectedRowsIndex = self.getSelectedRowsIndex();
+
+			selectedRowsIndex.forEach(function(rowIndex) {
+				if (cont) {
+					cont = self.moveRow(rowIndex, rowIndex - 1);
+				}
 			});
 		}
 
@@ -326,6 +378,29 @@ var DinamicTable = function(settings) {
 					settings.onRowClicked();
 				}
 			});
+
+			$(document).keydown(function(event) {
+				if (!tableIsFocused){ 
+					return;
+				}
+
+				if (event.keyCode == 40) {
+					moveSelectedRowsDown();
+				} 
+
+				if (event.keyCode == 38) {
+					moveSelectedRowsUp();
+				}
+			})
+
+			$(document).click(function(event) {
+				if ($.contains(tableElement.get(0), event.target)) {
+					tableIsFocused = true;			
+				} 
+				else {
+					tableIsFocused = false;
+				}
+			})
 		}
 
 }
