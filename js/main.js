@@ -127,6 +127,7 @@ var DinamicTable = function(settings) {
 	var rows = [];
 	var tableElement;
 	var tableIsFocused = false;
+	var lastSortedAscending = false;
 
 	var cellRenderer = function(row, column, value, rowData) {
 		return '<td>' + value + '</td>';
@@ -237,12 +238,53 @@ var DinamicTable = function(settings) {
 			}
 
 			refreshIndexes();
+
 			return true;
 		}
 
-		function insertRow(data, index) {
+		this.insertRow = function(data, index) {
 			//if (index === undefined)
 		};
+
+		this.refresh = function() {
+			render();
+		}
+
+		this.url = function(url) {
+			if (url === undefined) {
+				return settings.url;
+			}
+
+			settings.url = url;
+			refreshData();
+		}
+
+		this.sortByColumn = function (column, ascending) {
+			if (!isNaN(column)) {
+				column = settings.columns[column];
+			}
+
+			if (!_.isObject(column)) {
+				console.error("Column not found", column);
+				return false;
+			}
+
+			if (column.source) {
+				rows = _.sortBy(rows, column['source']);
+
+				if (ascending === undefined) {
+					lastSortedAscending = !lastSortedAscending;
+				}
+
+				if (!lastSortedAscending) {
+					rows = rows.reverse();
+				}
+
+				render();
+			}
+
+
+		}
 
 	//----------------------------------- Private functions --------------------------------
 
@@ -285,7 +327,9 @@ var DinamicTable = function(settings) {
 						// add new row
 						rows.push(item);
 					}
-				});			
+				});
+
+				rows = _.intersection(rows, data);			
 			}
 		}
 
@@ -298,7 +342,8 @@ var DinamicTable = function(settings) {
 			var tableHeader = tableElement.find('thead').empty().append('<tr></tr>');
 			settings.columns.forEach(function (column, index) {
 				if (column.active) {
-					tableHeader.append(column.headRenderer(column));
+					var columnHead = $(column.headRenderer(column)).attr('data-column-index', index);
+					tableHeader.append(columnHead);
 				}
 			});
 
@@ -347,6 +392,10 @@ var DinamicTable = function(settings) {
 			});
 		}
 
+		function cancelSortedState() {
+			lastSortedAscending = false;
+		}
+
 		function init() {
 			settings.container = $(settings.container);
 			if (settings.container.length < 1) {
@@ -361,8 +410,9 @@ var DinamicTable = function(settings) {
 				tableElement = $(settings.container).append('<table><thead></thead><tbody></tbody></table>');
 			}
 
-			tableElement.on('click', 'tr', function() {
-				if (_.isFunction(settings.onRowClick) && settings.onRowClick() === false) {
+			// handle click on row and row selection
+			tableElement.find('tbody').on('click', 'tr', function(event) {
+				if (_.isFunction(settings.onRowClick) && settings.onRowClick(event) === false) {
 					return;
 				}
 				var $this = $(this);
@@ -379,6 +429,7 @@ var DinamicTable = function(settings) {
 				}
 			});
 
+			// handle table rearange with up down keys
 			$(document).keydown(function(event) {
 				if (!tableIsFocused){ 
 					return;
@@ -393,6 +444,7 @@ var DinamicTable = function(settings) {
 				}
 			})
 
+			// handle table focused
 			$(document).click(function(event) {
 				if ($.contains(tableElement.get(0), event.target)) {
 					tableIsFocused = true;			
@@ -401,6 +453,23 @@ var DinamicTable = function(settings) {
 					tableIsFocused = false;
 				}
 			})
+
+			// handle column click
+			tableElement.on('click', 'th', function(event) {
+				var $this = $(this),
+					columnIndex = parseInt($this.attr('data-column-index')),
+					column = settings.columns[columnIndex];
+				
+				if (_.isFunction(settings.onColumnClick) && (settings.onColumnClick(column, this, event) === false)) {
+					return;
+				}
+
+				self.sortByColumn(column);
+
+				if (_.isFunction(settings.onColumnClick)) {
+					settings.onColumnClicked(column, this, event);
+				}
+			});
 		}
 
 }
