@@ -15,6 +15,7 @@ $(function(){
 			source: 'medias',
 			refreshInterval: 10000,
 			idColumn: 'idMedia',
+			multipleSelect: true,
 			onRender: function(rows) {
 				var currentPlaylistTime = 0;
 				_.forEach(rows, function(row, rowIndex) {
@@ -173,6 +174,7 @@ var DinamicTable = function(settings) {
 		refreshInterval: 0,
 		paginable: false,
 		pageItemCount: null, 
+		multipleSelect: false,
 		columns: [],
 		idColumn: 'id',
 		onRowClick: null,
@@ -457,12 +459,22 @@ console.log('settings', settings);
 				}
 				var $this = $(this);
 
-				if ($this.hasClass('selected')) {
-					$this.removeClass('selected');
+				if (settings.multipleSelect) {
+					if ($this.hasClass('selected')) {
+						$this.removeClass('selected');
+					}
+					else {
+						$this.addClass('selected');
+					}					
 				}
 				else {
-					$this.addClass('selected');
+					var remove = $this.hasClass('selected');
+					tableElement.find('.selected').removeClass('selected');
+					if (!remove) {
+						$this.addClass('selected');
+					}
 				}
+
 
 				if (_.isFunction(settings.onRowClicked)) {
 					settings.onRowClicked();
