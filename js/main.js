@@ -213,6 +213,17 @@ console.log('settings', settings);
 	refreshData();
 
 	//----------------------------------- Public functions ---------------------------------
+
+		this.selectAllRows = function() {
+			tableElement.find('tbody').find('tr').addClass('selected');
+		}
+
+		this.invertRowsSelection = function() {
+			var selected = tableElement.find('tbody').find('tr.selected');
+			self.selectAllRows();
+			selected.removeClass('selected');
+		}
+
 		this.getSelectedRowsIndex = function() {
 			var selectedRowElements = tableElement.find('tr.selected');
 			var result = [];
@@ -494,6 +505,21 @@ console.log('settings', settings);
 				if (event.keyCode == 38) {
 					moveSelectedRowsUp();
 				}
+
+				if ((event.keyCode == 65) && (event.ctrlKey == true)) {
+					if (settings.multipleSelect) {
+						self.selectAllRows();
+					}
+					event.preventDefault();
+				}
+
+				if ((event.keyCode == 88) && (event.ctrlKey == true)) {
+					if (settings.multipleSelect) {
+						self.invertRowsSelection();
+					}
+					event.preventDefault();
+				}
+
 			})
 
 			// handle table focused
