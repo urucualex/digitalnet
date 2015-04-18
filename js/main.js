@@ -239,6 +239,8 @@ var DinamicTable = function(settings) {
 
 			refreshIndexes();
 
+			cancelSortedState();
+
 			return true;
 		}
 
