@@ -76,11 +76,10 @@
 		</div>
 
 		<div class="col-sm-10 col-sm-offset-2 main"> <!-- Content -->
-			<table class="table table-striped">
+			<table id="main-media-table" class="table table-striped">
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Selecteaza</th>
 						<th>Pozitia in playlist</th>
 						<th>Nume</th>
 						<th>Label</th>
@@ -99,10 +98,6 @@
 				<tbody>
 					<tr>
 						<td>1</td>
-						<td>
-							<label><input type="checkbox"/></label>
-							<a href="/media/item" target="_blank" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
-						</td>
 						<td>1</td>
 						<td>Oscilococcinum iunie 2015</td>						
 						<td>reclama, medicamet, homeopatic</td>						
@@ -119,9 +114,6 @@
 					</tr>
 					<tr>
 						<td>1</td>
-						<td>
-							<label><input type="checkbox" /></label>
-						</td>
 						<td>1</td>
 						<td>Oscilococcinum iunie 2015</td>						
 						<td>reclama, medicamet, homeopatic</td>						
@@ -138,9 +130,6 @@
 					</tr>																			
 					<tr>
 						<td>1</td>
-						<td>
-							<label><input type="checkbox" /></label>
-						</td>
 						<td>1</td>
 						<td>Oscilococcinum iunie 2015</td>						
 						<td>reclama, medicamet, homeopatic</td>						
@@ -157,9 +146,6 @@
 					</tr>																			
 					<tr>
 						<td>1</td>
-						<td>
-							<label><input type="checkbox" /></label>
-						</td>
 						<td>1</td>
 						<td>Oscilococcinum iunie 2015</td>						
 						<td>reclama, medicamet, homeopatic</td>						
