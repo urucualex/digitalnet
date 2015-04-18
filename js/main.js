@@ -175,6 +175,7 @@ var DinamicTable = function(settings) {
 		paginable: false,
 		pageItemCount: null, 
 		multipleSelect: false,
+		manualOrder: false,
 		columns: [],
 		idColumn: 'id',
 		onRowClick: null,
@@ -499,11 +500,15 @@ console.log('settings', settings);
 				}
 
 				if (event.keyCode == 40) {
-					moveSelectedRowsDown();
+					if (settings.manualOrder) {
+						moveSelectedRowsDown();
+					}
 				} 
 
 				if (event.keyCode == 38) {
-					moveSelectedRowsUp();
+					if (settings.manualOrder) {
+						moveSelectedRowsUp();
+					}
 				}
 
 				if ((event.keyCode == 65) && (event.ctrlKey == true)) {
