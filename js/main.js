@@ -15,19 +15,39 @@ $(function(){
 			source: 'medias',
 			refreshInterval: 10000,
 			idColumn: 'idMedia',
+			onRender: function(rows) {
+				var currentPlaylistTime = 0;
+				_.forEach(rows, function(row, rowIndex) {
+					rows[rowIndex]['playMinute'] = currentPlaylistTime;
+					currentPlaylistTime += _.parseInt(row['duration'], 10) + 1;
+				})
+			},
+			onData: function(rows) {
+				console.log('onData', rows);
+				_.forEach(rows, function(row, rowIndex) {
+					var start = new Date(row['startDate']),
+						end = new Date(row['endDate']);
+						if (start.isValid() && end.isValid()) {
+							rows[rowIndex]['daysCount'] = (end.getTime() - start.getTime()).toDays() + 1;
+						}
+						else {
+							rows[rowIndex]['daysCount'] = '';
+						}
+				});
+			},
 			columns: [
 				{
 					name: '#',
 					width: '30px',
-					cellRenderer: function(value, row, column, rowData) {
-						return '<td>' + row + '</td>';
+					cellRenderer: function(value, row) {
+						return '<td>' + (row + 1) + '</td>';
 					}					
 				},
 				{
 					name: 'Pozitia in playlist',
 					source: 'order',
 					sortable: true,
-					width: 'auto'
+					width: '50px'
 				},
 				{
 					name: 'Nume',
@@ -87,13 +107,25 @@ $(function(){
 					name: 'Data de inceput',
 					source: 'startDate',
 					sortable: true,
-					width: 'auto'
+					width: 'auto',
+					cellRenderer: function(value) {
+						if (value == '0000-00-00') {
+							return '<td></td>';
+						}
+ 						return '<td>' + value.toString().toDate() + '</td>';
+					}
 				},
 				{
 					name: 'Data de sfarsit',
 					source: 'endDate',
 					sortable: true,
-					width: 'auto'
+					width: 'auto',
+					cellRenderer: function(value) {
+						if (value == '0000-00-00') {
+							return '<td></td>';
+						}
+						return '<td>' + value.toString().toDate() + '</td>';
+					}
 				},
 				{
 					name: 'Numar de zile',
@@ -115,9 +147,6 @@ $(function(){
 });
 
 /** 
-	settings = {
-		url: '//'
-	}
 
 */
 
@@ -129,7 +158,7 @@ var DinamicTable = function(settings) {
 	var tableIsFocused = false;
 	var lastSortedAscending = false;
 
-	var cellRenderer = function(row, column, value, rowData) {
+	var cellRenderer = function(value, row, column, rowData) {
 		return '<td>' + value + '</td>';
 	}
 
@@ -151,7 +180,9 @@ var DinamicTable = function(settings) {
 		onRowDblClick: null,
 		onRowDblClicked: null,
 		onKeyPress: null,
-		onKeyPressed: null
+		onKeyPressed: null,
+		onRender: null,
+		onData: null
 	}
 
 	var defaultColumnSettings = {
@@ -175,7 +206,7 @@ var DinamicTable = function(settings) {
 			settings.columns[index] = _.extend( {}, defaultColumnSettings, column);
 		});
 	}
-	
+console.log('settings', settings);
 	init();
 	refreshData();
 
@@ -299,6 +330,9 @@ var DinamicTable = function(settings) {
 			});
 
 			request.done(function(data) {
+				if (_.isFunction(settings.onData)) {
+					settings.onData(data);
+				}
 				syncData(data);
 				render();
 			});
@@ -341,6 +375,10 @@ var DinamicTable = function(settings) {
 				return false;
 			}
 
+			if(_.isFunction(settings.onRender)) {
+				settings.onRender(rows);
+			}
+
 			var tableHeader = tableElement.find('thead').empty().append('<tr></tr>');
 			settings.columns.forEach(function (column, index) {
 				if (column.active) {
@@ -355,7 +393,7 @@ var DinamicTable = function(settings) {
 				var newRow = $('<tr data-row-index="' + rowIndex + '"></tr>')
 				settings.columns.forEach(function (column, colIndex) {
 					if (column.active) {
-						newRow.append(column.cellRenderer(rowIndex, colIndex, row[column.source]));
+						newRow.append(column.cellRenderer(row[column.source], rowIndex, colIndex, row));
 					}
 				});
 				var tableRow = tableBody.append(newRow);
@@ -540,6 +578,13 @@ var DinamicTable = function(settings) {
 		return request;	
 	}
 
+	Number.prototype.twoDigits = function() {
+		if (this < 10) {
+			return '0' + this;
+		}
+		return this;
+	}
+
 	//transforms number of seconds into time (5780 -> 1:36:20)
 	String.prototype.StoHHMMSS = function(includeHours, separator) {
 		value = parseInt(this, 10);
@@ -552,17 +597,26 @@ var DinamicTable = function(settings) {
 		var minutes = Math.floor(value / 60);
 		seconds = value % 60;
 
-		if (hours < 10) {
-			hours = '0' + hours;
+		return ((hours > 0) || includeHours ? hours.twoDigits() + ':' : '') + minutes.twoDigits() + ':' + seconds.twoDigits();
+	}
+
+	String.prototype.toDate = function(separator) {
+		var date = new Date(this);
+
+		if (separator === undefined) {
+			separator = '-';
 		}
 
-		if (minutes < 10) {
-			minutes = '0' + minutes;
-		}
+		return date.getDate().twoDigits() + separator + date.getMonth().twoDigits() + separator + date.getFullYear();
+	}
 
-		if (seconds < 10) {
-			seconds = '0' + seconds;
-		}
+	Number.prototype.toDays = function() {
+		return Math.ceil(this/(3600000*24));
+	}
 
-		return ((hours > 0) || includeHours ? hours + ':' : '') + minutes + ':' + seconds;
+	Date.prototype.isValid = function() {
+		if (isNaN(this.getTime())) {
+			return false;
+		}
+		return true;
 	}
