@@ -36,6 +36,10 @@ console.log('onData', rows);
 						}
 				});
 			},
+			onRowDblClicked: function(value, row, column, rowData) {
+				var win = window.open('/media/item/' + rowData['mediaId'], '_blank');
+				win.focus();		
+			},
 			columns: [
 				{
 					name: '#',
@@ -560,6 +564,18 @@ console.log('settings', settings);
 
 				if (_.isFunction(settings.onColumnClick)) {
 					settings.onColumnClicked(column, this, event);
+				}
+			});
+
+			tableElement.on('dblclick', 'tbody td', function(event) {
+				if (_.isFunction(settings.onRowDblClick)) {
+					if (settings.onRowDblClick(this['value'], this['rowIndex'], this['colIndex'], this['rowData'], event) === false) {
+						return;
+					}
+				}
+
+				if (_.isFunction(settings.onRowDblClicked)) {
+					settings.onRowDblClicked(this['value'], this['rowIndex'], this['colIndex'], this['rowData'], event);
 				}
 			});
 		}
