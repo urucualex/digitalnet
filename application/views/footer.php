@@ -16,7 +16,11 @@
         <script src="/js/vendor/bootstrap.min.js"></script>
         <script src="/js/lodash.js"></script>
         <script src="/js/plugins.js"></script>
+        <script src="/js/helpers.js"></script>        
+        <script src="/js/dinamictable.js"></script>
+        <script src="/js/media_table.js"></script>
         <script src="/js/main.js"></script>
+
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
