@@ -24,7 +24,7 @@ $(function(){
 				})
 			},
 			onData: function(rows) {
-				console.log('onData', rows);
+console.log('onData', rows);
 				_.forEach(rows, function(row, rowIndex) {
 					var start = new Date(row['startDate']),
 						end = new Date(row['endDate']);
@@ -41,7 +41,7 @@ $(function(){
 					name: '#',
 					width: '30px',
 					cellRenderer: function(value, row) {
-						return '<td>' + (row + 1) + '</td>';
+						return (row + 1);
 					}					
 				},
 				{
@@ -74,7 +74,7 @@ $(function(){
 					sortable: true,
 					width: 'auto',
 					cellRenderer: function(value) {
-						return '<td>' + value.toString().StoHHMMSS() + '</td>';
+						return value.toString().StoHHMMSS();
 					}
 				},
 				{
@@ -83,7 +83,7 @@ $(function(){
 					sortable: true,
 					width: 'auto',
 					cellRenderer: function(value) {
-						return '<td>' + value.toString().StoHHMMSS() + '</td>';
+						return value.toString().StoHHMMSS();
 					}
 				},
 				{
@@ -111,9 +111,9 @@ $(function(){
 					width: 'auto',
 					cellRenderer: function(value) {
 						if (value == '0000-00-00') {
-							return '<td></td>';
+							return '';
 						}
- 						return '<td>' + value.toString().toDate() + '</td>';
+ 						return value.toString().toDate();
 					}
 				},
 				{
@@ -123,9 +123,9 @@ $(function(){
 					width: 'auto',
 					cellRenderer: function(value) {
 						if (value == '0000-00-00') {
-							return '<td></td>';
+							return '';
 						}
-						return '<td>' + value.toString().toDate() + '</td>';
+						return value.toString().toDate();
 					}
 				},
 				{
@@ -160,7 +160,7 @@ var DinamicTable = function(settings) {
 	var lastSortedAscending = false;
 
 	var cellRenderer = function(value, row, column, rowData) {
-		return '<td>' + value + '</td>';
+		return value;
 	}
 
 	var headRenderer = function(columnData) {
@@ -404,10 +404,19 @@ console.log('settings', settings);
 			var tableBody = tableElement.find('tbody');
 			tableBody.empty();
 			rows.forEach(function(row, rowIndex) {
-				var newRow = $('<tr data-row-index="' + rowIndex + '"></tr>')
+				var newRow = $('<tr data-row-index="' + rowIndex + '"></tr>');
+				newRow.get(0)['rowData'] = row;
 				settings.columns.forEach(function (column, colIndex) {
 					if (column.active) {
-						newRow.append(column.cellRenderer(row[column.source], rowIndex, colIndex, row));
+						var $newCell = $('<td>' + column.cellRenderer(row[column.source], rowIndex, colIndex, row) + "</td>");
+						// Set cell element properties
+						cellElement = $newCell.get(0);
+						cellElement['value'] = row[column.source];
+						cellElement['rowIndex'] = rowIndex;
+						cellElement['colIndex'] = colIndex;
+						cellElement['column'] = column;
+						cellElement['rowData'] = row;
+						newRow.append($newCell);
 					}
 				});
 				var tableRow = tableBody.append(newRow);
