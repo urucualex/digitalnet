@@ -158,4 +158,8 @@ debug('POST: ', $data);
 		return ($this->result['status'] == 'ok');
 	}
 
+	public function php_test() {
+		phpinfo();
+	}
+
 }

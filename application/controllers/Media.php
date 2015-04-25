@@ -11,6 +11,7 @@ class Media extends Generic_Controller {
 
 	public function upload() {
 		$this->load->model('media_file_model');
+
 		$result = $this->media_file_model->get_from_upload('file');
 
 		if (!($result)) {
