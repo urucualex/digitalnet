@@ -2,6 +2,7 @@
 $(function(){
 	// Enable js/jquery items
 		$('#main-media-table').each(mainMediaTable);
+		$('#main-players-table').each(mainPlayersTable);
 
 	// Add events
 		$(document).on('submit', 'form[data-ajax=true]', function(ev) {

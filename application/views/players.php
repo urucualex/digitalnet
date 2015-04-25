@@ -55,7 +55,7 @@
 		</div>
 
 		<div class="col-sm-10 col-sm-offset-2 main"> <!-- Content -->
-			<table class="table table-striped">
+			<table class="table table-striped" id="main-players-table">
 				<thead>
 					<tr>
 						<th>#</th>

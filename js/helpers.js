@@ -162,3 +162,20 @@ Date.prototype.isValid = function() {
 	}
 	return true;
 }
+
+String.prototype.elipsis = function(charCount) {
+	var trim = this.substring(0, charCount - 1);
+	return '<span title="' + escapeHtml(this) + '">' + trim + '...</span>'; 
+}
+
+function escapeHtml(text) {
+	var map = {
+		'&': '&amp;',
+		'<': '&lt;',
+		'>': '&gt;',
+		'"': '&quot;',
+		"'": '&#039;'
+	};
+
+	return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
