@@ -12,7 +12,8 @@ $(function(){
 	// Upload file
 	$(document).on('change', 'input[type=file]', function() {
 		var $this = $(this),
-			valueHolder = $this.attr('value-holder');
+			valueHolder = $this.attr('value-holder'),
+			onSuccess = $this.attr('on-success');
 
 		var request = uploadFile({
 			file: this.files[0],
@@ -23,7 +24,18 @@ $(function(){
 console.log('Upload result', data);
 console.log('valueHolder', valueHolder);
 			$(valueHolder).val(data.file['file_name']);
+
+			// call onSuccess function
+			if (onSuccess !== undefined) {
+				window[onSuccess].call($this.get(0), data);
+			}
+
 		});
 	})
 
 });
+
+// If media uploaded update file duration field
+function mediaUploaded(data) {
+	$('input[name=duration]').val(data['file']['duration'].toString().StoHHMMSS());
+}

@@ -9,6 +9,24 @@ class Media extends Generic_Controller {
 		parent::__construct();
 	}
 
+	private function getVideoDuration($file_path) {
+
+		$exec_str = 'ffmpeg -i "'.$file_path.'" 2>&1 | grep \'Duration\' | cut -d \' \' -f 4 | sed s/,//';
+		$time = exec($exec_str, $output);   
+		$duration = explode(":",$time);   
+
+		debug('ffmpeg cmd', $exec_str);
+		debug('ffmpeg output', $output);
+
+		$duration_in_seconds = 0;
+
+		if (count($duration) > 2) {
+				$duration_in_seconds = $duration[0]*3600 + $duration[1]*60+ round($duration[2]);   
+		} 
+
+		return $duration_in_seconds;  		
+	}
+
 	public function upload() {
 		$this->load->model('media_file_model');
 
@@ -21,6 +39,9 @@ class Media extends Generic_Controller {
 			));
 			return FALSE;
 		} else {
+		
+			$result['duration'] = $this->getVideoDuration($this->media_file_model->path_to_file($result['file_name'], $result['path']));
+
 			echo json_encode(array(
 				'status' => 'ok',
 				'file' => $result

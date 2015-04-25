@@ -121,7 +121,6 @@ class Generic_file_model extends Generic_Model
 
         // Do the actual move and rename of the uploaded file  with CI
         $file_data = $this->upload->data();
-
         if (!empty($this->_table)) {
             $update_data = array(
                       $this->_original_filename_column => urlencode($file_data['client_name'])
@@ -140,7 +139,7 @@ class Generic_file_model extends Generic_Model
         else {
             $data = array(
                 'original_file_name' => $file_data['client_name'],
-                'file_name' => $new_file_name,
+                'file_name' => $file_data['file_name'],
                 'path' => $this->_path
             );
         }
@@ -169,7 +168,7 @@ class Generic_file_model extends Generic_Model
             $path = $path.'/';
         }
 
-        $file_path = $this->_path.$file_name;
+        $file_path = $path.$file_name;
         return $file_path;
     }
 

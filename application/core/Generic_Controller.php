@@ -161,5 +161,4 @@ debug('POST: ', $data);
 	public function php_test() {
 		phpinfo();
 	}
-
 }

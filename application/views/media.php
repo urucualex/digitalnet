@@ -47,6 +47,7 @@
 			    										action="/media/upload/"
 			    										value-holder="input[name=file]"
 			    										data-ajax="true" 
+			    										on-success="mediaUploaded"
 			    								/>
 			    							</div>
 				    					</div>
