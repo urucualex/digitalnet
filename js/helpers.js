@@ -164,6 +164,10 @@ Date.prototype.isValid = function() {
 }
 
 String.prototype.elipsis = function(charCount) {
+	if (this.length <= charCount) {
+		return this;
+	}
+
 	var trim = this.substring(0, charCount - 1);
 	return '<span title="' + escapeHtml(this) + '">' + trim + '...</span>'; 
 }
