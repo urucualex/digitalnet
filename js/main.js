@@ -37,5 +37,7 @@ console.log('valueHolder', valueHolder);
 
 // If media uploaded update file duration field
 function mediaUploaded(data) {
-	$('input[name=duration]').val(data['file']['duration'].toString().StoHHMMSS());
+	$('input[name=duration]').val(data['file']['duration']);
+	$('input.duration-display').val(data['file']['duration'].toString().StoHHMMSS());
+	$('#play_media').attr('href', '/media/download/' + data['file']['file_name']);
 }

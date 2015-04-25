@@ -48,6 +48,11 @@ class Media extends Generic_Controller {
 			));			
 		}
 		return TRUE;
-
 	}
+
+	public function download($file_name) {
+		$this->load->model('media_file_model');
+		$this->media_file_model->serve_file($file_name);		
+	}
+
 }

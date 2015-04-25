@@ -34,9 +34,9 @@
 				    						/>
 				    					</div>	    	
 				    					<div class="col-sm-2">
-				    						<button type="button" class="btn btn-default">
+				    						<a href="<?=(array_key_exists('file', $media) and !empty($media['file'])) ? '/media/download/'.$media['file'] : '#'?>" id="play_media" target="_blank" class="btn btn-default">
 				    							<span class="glyphicon glyphicon-play"></span>
-				    						</button>
+				    						</a>
 				    						<label for="file" class="btn btn-default">
 				    							<span class="glyphicon glyphicon-upload"></span>
 				    						</label>
@@ -58,12 +58,15 @@
 				    					<div class="col-sm-2">
 				    						<input 	type="text" 
 				    								readonly="" 
-				    								value="00:12:00" 
-				    								class="form-control" 
-				    								name="duration"
-				    								value="<?=(array_key_exists('duration', $media)) ? $media['duration'] : ''?>"
+				    								class="form-control duration-display" 
+				    								value="<?=(array_key_exists('duration', $media)) ? toHHMMSS($media['duration']) : '00:00'?>"
 				    						/>
-				    					</div>	    					
+				    						<input 	type="hidden" 
+				    								name="duration"
+				    								value="<?=(array_key_exists('duration', $media)) ? $media['duration'] : '0'?>"
+				    						/>
+				    					</div>	    			
+
 				    				</div>
 				    				
 				    				<!--div class="form-group">

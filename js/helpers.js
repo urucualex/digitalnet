@@ -112,9 +112,18 @@ function uploadFile(settings) {
 }
 
 Number.prototype.twoDigits = function() {
+	if (isNaN(this)) {
+		return this;
+	}
+
+	if ((this > -10) && (this < 0)) {
+		return '-0' + Math.abs(this);
+	}
+
 	if (this < 10) {
 		return '0' + this;
 	}
+
 	return this;
 }
 

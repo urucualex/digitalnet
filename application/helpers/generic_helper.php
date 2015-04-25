@@ -537,3 +537,25 @@ if (!function_exists('array_column'))
 
         return $result;
     }
+
+    function twoDigits($value) {
+        if (is_numeric($value) and ($value < 10) and ($value > -10)) {
+            if ($value < 0) {
+                return '-0'.abs($value);
+            }
+
+            return '0'.$value;
+        }
+
+        return $value;
+    }
+
+    function toHHMMSS($value, $includeHours = FALSE, $separator = ':') {
+
+        $hours = floor($value / 3600);
+        $value %= 3600;
+        $minutes = floor($value / 60);
+        $seconds = $value % 60;
+
+        return (($hours > 0) || $includeHours ? twoDigits($hours) . $separator : '') . twoDigits($minutes) . $separator . twoDigits($seconds);
+    }

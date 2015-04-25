@@ -78,88 +78,8 @@
 		<div class="col-sm-10 col-sm-offset-2 main"> <!-- Content -->
 			<table id="main-media-table" class="table table-striped">
 				<thead>
-					<tr>
-						<th>#</th>
-						<th>Pozitia in playlist</th>
-						<th>Nume</th>
-						<th>Label</th>
-						<th>Fisier</th>
-						<th>Durata</th>
-						<th>Minutul afisarii</th>
-						<th>Numar de statii</th>
-						<th>Client</th>
-						<th>Tip</th>
-						<th>Data de inceput</th>
-						<th>Data de sfarsit</th>
-						<th>Numar zile de afisare</th>
-						<th>Observatii</th>
- 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td>1</td>
-						<td>Oscilococcinum iunie 2015</td>						
-						<td>reclama, medicamet, homeopatic</td>						
-						<td>oscilococcinum iunie 2015.wmv</td>						
-						<td>00:20</td>						
-						<td>00:00</td>
-						<td>33</td>
-						<td>Boiron</td>						
-						<td>Reclama</td>						
-						<td>1 iunie 2015</td>						
-						<td>30 iunie 2015</td>						
-						<td>30</td>	
-						<td>observatii</td>					
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>1</td>
-						<td>Oscilococcinum iunie 2015</td>						
-						<td>reclama, medicamet, homeopatic</td>						
-						<td>oscilococcinum iunie 2015.wmv</td>						
-						<td>00:20</td>						
-						<td>00:00</td>
-						<td>33</td>
-						<td>Boiron</td>						
-						<td>Reclama</td>						
-						<td>1 iunie 2015</td>						
-						<td>30 iunie 2015</td>						
-						<td>30</td>	
-						<td>observatii</td>					
-					</tr>																			
-					<tr>
-						<td>1</td>
-						<td>1</td>
-						<td>Oscilococcinum iunie 2015</td>						
-						<td>reclama, medicamet, homeopatic</td>						
-						<td>oscilococcinum iunie 2015.wmv</td>						
-						<td>00:20</td>						
-						<td>00:00</td>
-						<td>33</td>
-						<td>Boiron</td>						
-						<td>Reclama</td>						
-						<td>1 iunie 2015</td>						
-						<td>30 iunie 2015</td>						
-						<td>30</td>	
-						<td>observatii</td>					
-					</tr>																			
-					<tr>
-						<td>1</td>
-						<td>1</td>
-						<td>Oscilococcinum iunie 2015</td>						
-						<td>reclama, medicamet, homeopatic</td>						
-						<td>oscilococcinum iunie 2015.wmv</td>						
-						<td>00:20</td>						
-						<td>00:00</td>
-						<td>33</td>
-						<td>Boiron</td>						
-						<td>Reclama</td>						
-						<td>1 iunie 2015</td>						
-						<td>30 iunie 2015</td>						
-						<td>30</td>	
-						<td>observatii</td>					
-					</tr>																			
+				<tbody>																		
 				</tbody>
 			</table>
 		</div> <!-- Content -->

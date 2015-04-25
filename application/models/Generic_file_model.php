@@ -231,6 +231,32 @@ class Generic_file_model extends Generic_Model
         return TRUE;
     }
 
+
+    public function serve_file($Filename, $Path = NULL)
+    {
+        $file_path = $this->path_to_file($Filename, $Path);
+
+        $finfo = finfo_open(FILEINFO_MIME_TYPE); // return mime type ala mimetype extension
+        $file_mime_type =finfo_file($finfo, $file_path);
+        finfo_close($finfo);
+
+        $fp = fopen($file_path, 'rb');
+
+        if ($fp)
+        {
+            header('Content-Type: '.$file_mime_type);
+            header('Content-Length: '.filesize($file_path));
+
+            fpassthru($fp);
+        }
+        else {
+            set_error('File not found');
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+
     public function download($Id)
     {
         $file_data = $this->read($Id);
@@ -244,13 +270,13 @@ class Generic_file_model extends Generic_Model
         return FALSE;
     }
 
-    public function serve_image($Id)
+    public function serve($Id)
     {
         $file_data = $this->read($Id);
 
         if (!empty($file_data))
         {
-            return $this->serve_image_file($file_data[$this->_filename_column], $file_data[$this->_path_column]);
+            return $this->serve_file($file_data[$this->_filename_column], $file_data[$this->_path_column]);
         }
         else {
             set_error("File is not in the database");
