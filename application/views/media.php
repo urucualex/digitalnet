@@ -44,6 +44,9 @@
 			    								<input 	id="file" 
 			    										type="file" 
 			    										name="filename"
+			    										action="/media/upload/"
+			    										value-holder="input[name=file]"
+			    										data-ajax="true" 
 			    								/>
 			    							</div>
 				    					</div>
@@ -272,19 +275,6 @@
 		</div>	
 	</div>
 </div> <!-- container -->
-
-
-
-
-
-<div class="container">
-	<div class="panel panel-default">
-		<div class="panel-body">	
-	
-		</div>
-	</div>
-</div> <!-- container -->
-
         
 <?php
     $this->load->view('footer');

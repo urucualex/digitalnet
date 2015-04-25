@@ -58,6 +58,59 @@ console.log('form', form, formData);
 	return request;	
 }
 
+
+function uploadFile(settings) {
+
+	var baseSettings = {
+		file: '',
+		action: '',
+		fieldName: 'file',
+		progressFunction: null,
+		successFunction: null,
+
+	}
+
+	settings = _.extend({}, baseSettings, settings);
+
+	// Check if file is ok
+    if (!(settings.file instanceof File)) {
+        return false;
+    }
+
+    // prepare FormData
+    var fileSize = settings.file.size;
+    var formData = new FormData();
+    formData.append(settings.fieldName, settings.file);
+    
+    // start request
+    var request = $.ajax({
+      type: 'post'
+    , url: settings.action
+    , data: formData
+    , dataType: 'json'
+    , success: function (data) {
+        if (_.isFunction(settings.successFunction)) {
+            settings.successFunction(data);
+        }
+    }
+    , xhrFields: {
+        // add listener to XMLHTTPRequest object directly for progress (jquery doesn't have this yet)
+        onprogress: function (progress) {
+            // calculate upload progress
+            var percentage = Math.floor((progress.loaded / fileSize) * 100);
+
+            if (_.isFunction(settings.progressFunction)) {
+                settings.progressFunction(percentage);
+            }
+        }
+    }
+    , processData: false
+    , contentType: false
+    });
+
+    return request;
+}
+
 Number.prototype.twoDigits = function() {
 	if (this < 10) {
 		return '0' + this;
