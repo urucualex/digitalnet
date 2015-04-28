@@ -34,6 +34,26 @@ console.log('valueHolder', valueHolder);
 		});
 	})
 
+	$(document).on('click', '[data-action=add-media-to-players]', function(event) {
+		event.preventDefault();
+		var selectedMedia = mediaTable.getSelectedRows();
+		var selectedMediaIds = _.pluck(selectedMedia, 'mediaId');
+
+		var request = $.ajax({
+			url: '/media/select/',
+			method: 'post',
+			data: {mediaId: selectedMediaIds},
+		});
+
+		request.success(function(result) {
+console.log('/media/select result', result);
+		});
+
+		request.always(function(data1, data2) {
+console.log('/media/select result', data1, data2);			
+		});
+	});
+
 });
 
 // If media uploaded update file duration field

@@ -8,4 +8,8 @@ class Players extends Generic_Controller {
 	public function __construct() {
 		parent::__construct();
 	}
+
+	public function select() {
+		$this->load->view('players_select');
+	}
 }

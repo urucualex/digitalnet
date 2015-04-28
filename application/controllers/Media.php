@@ -55,4 +55,14 @@ class Media extends Generic_Controller {
 		$this->media_file_model->serve_file($file_name);		
 	}
 
+	public function select() {
+		$selectedMediaIds = $this->input->post('mediaId', TRUE);
+		$this->load->library('session');		
+		$this->session->set_userdata('selectedMediaIds', $selectedMediaIds);
+
+		echo json_encode(array(
+			'status' => 'ok',
+			'messsage' => 'selection saved'
+		));
+	}
 }

@@ -23,7 +23,7 @@
 					<hr>
 				</li>
 				<li>
-					<a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Adauga in statii</a>
+					<a href="#" data-action="add-media-to-players"><span class="glyphicon glyphicon-plus-sign"></span> Adauga in statii</a>
 				</li>
 				<li>
 					<a href="#"><span class="glyphicon glyphicon-list"></span> Salveaza ordinea curenta</a>
