@@ -1,9 +1,30 @@
+function showOverlay() {
+	$('#overlay').show();
+}
+
+function hideOverlay() {
+	$('#overlay').hide();
+}
+
+
 function showLoader() {
 
 }
 
 function hideLoader() {
 
+}
+
+function createHTMLFromTemplate(template, newId) {
+	var $template;
+	$template = $(template).clone();
+	if (newId != undefined) {
+		$template.attr("id", newId);
+	}
+	
+	$template.appendTo("body");
+
+	return $template;
 }
 
 function successMessage(message) {

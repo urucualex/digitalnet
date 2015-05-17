@@ -42,3 +42,35 @@ table.table tr:hover {
 table.table tr.selected {
 	background-color: #e0e0f0;
 }
+
+button.btn.action{
+	min-width: 50px;
+}
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.5;
+	background-color: black;
+	z-index: 9998;
+	display: none;
+}
+
+#select-players {
+	position: absolute;
+	width: 90%;
+	margin-left: -45%;
+	margin-right: auto;
+	left: 50%;
+	vertical-align: middle;
+	top: 5%;
+	height: 90%;
+	z-index: 9999;
+}
+
+.template {
+	display: none;
+}

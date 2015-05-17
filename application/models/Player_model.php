@@ -93,5 +93,4 @@ class Player_model extends Generic_model
 
         parent::__construct();
     }
-
 }

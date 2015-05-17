@@ -22,8 +22,6 @@ $(function(){
 		});
 
 		request.success(function(data){
-console.log('Upload result', data);
-console.log('valueHolder', valueHolder);
 			$(valueHolder).val(data.file['file_name']);
 
 			// call onSuccess function
@@ -34,24 +32,13 @@ console.log('valueHolder', valueHolder);
 		});
 	})
 
+	// Select players to add to selected media
 	$(document).on('click', '[data-action=add-media-to-players]', function(event) {
 		event.preventDefault();
 		var selectedMedia = mediaTable.getSelectedRows();
 		var selectedMediaIds = _.pluck(selectedMedia, 'mediaId');
 
-		var request = $.ajax({
-			url: '/media/select/',
-			method: 'post',
-			data: {mediaId: selectedMediaIds},
-		});
-
-		request.success(function(result) {
-console.log('/media/select result', result);
-		});
-
-		request.always(function(data1, data2) {
-console.log('/media/select result', data1, data2);			
-		});
+		selectPlayers(selectedMediaIds);
 	});
 
 });
