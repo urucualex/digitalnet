@@ -11,7 +11,7 @@ function mainPlayersTable() {
 		source: 'players',
 		refreshInterval: 10000,
 		idColumn: 'playerId',
-		multipleSelect: true,
+		multipleSelect: false,
 		onRowDblClicked: function(value, row, column, rowData) {
 			var win = window.open('/players/item/' + rowData['playerId'], '_blank');
 			win.focus();		
