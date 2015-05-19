@@ -40,6 +40,8 @@
         <script src="/js/media_table.js"></script>
         <script src="/js/players_table.js"></script>
         <script src="/js/select_players.js"></script>        
+        <script src="/js/playlist_table.js"></script>        
+        <script src="/js/media_players_table.js"></script>        
         <script src="/js/main.js"></script>
 
 

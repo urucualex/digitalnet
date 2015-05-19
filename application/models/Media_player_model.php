@@ -62,6 +62,17 @@ class Media_player_model extends Generic_model
                 )
             );
 
+        $this->_join = array(
+                array(
+                    'model' => 'media_model',
+                    'column' => 'mediaId',
+                ),
+                array(
+                    'model' => 'player_model',
+                    'column' => 'playerId',
+                )
+            );
+
         parent::__construct();
     }
 
@@ -79,4 +90,21 @@ class Media_player_model extends Generic_model
 
         return true;
     }
+
+    public function playlist($playerId) {
+        return $this->read_all([
+            'order_by' => 'order', 
+            'where' => [$this->_table.'.playerId' => $playerId],
+            'join' => true
+        ]);
+    }
+
+
+    public function players($mediaId) {
+        return $this->read_all([
+            'order_by' => 'county, city, playerName', 
+            'where' => [$this->_table.'.mediaId' => $mediaId],
+            'join' => true
+        ]);
+    }    
 }

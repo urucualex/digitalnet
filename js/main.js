@@ -3,6 +3,8 @@ $(function(){
 	// Enable js/jquery items
 		$('#main-media-table').each(mainMediaTable);
 		$('#main-players-table').each(mainPlayersTable);
+		$('#playlist-table').each(playlistTable);
+		$('#media-players-table').each(mediaPlayersTable);
 
 	// Add events
 		$(document).on('submit', 'form[data-ajax=true]', function(ev) {

@@ -65,4 +65,20 @@ class Media extends Generic_Controller {
 			'messsage' => 'selection saved'
 		));
 	}
+
+	public function playlist($playerId) {
+		$this->load->model('media_player_model');
+
+		$this->data['medias'] = $this->media_player_model->playlist($playerId);
+
+		echo json_encode($this->data['medias']);
+	}
+
+	public function players($mediaId) {
+		$this->load->model('media_player_model');
+
+		$this->data['players'] = $this->media_player_model->players($mediaId);
+
+		echo json_encode($this->data['players']);
+	}	
 }

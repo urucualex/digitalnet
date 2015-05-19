@@ -188,7 +188,7 @@
 					    		</a>
 					    	</div>											    		
 				    	</div>
-						<table class="table table-striped">
+						<table id="media-players-table" class="table table-striped" media-id="<?=(array_key_exists('mediaId', $media)) ? $media['mediaId'] : ''?>">
 							<thead>
 								<tr>
 									<th>#</th>
@@ -206,71 +206,6 @@
 			 					</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>
-										<input type="checkbox" name=""/>
-									</td>
-									<td><span class="glyphicon glyphicon-ok"></span></td>
-									<td>Spitalul Elias 1</td>
-									<td>1, spital, maternitate</td>						
-									<td>Bucuresti</td>						
-									<td>Sector 1</td>						
-									<td>14-mar-2015 14:23</td>						
-									<td>14-mar-2015 09:00</td>						
-									<td>23</td>						
-									<td>45:00</td>						
-									<td></td>					
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>
-										<input type="checkbox" name=""/>
-									</td>
-									<td><span class="glyphicon glyphicon-ok"></span></td>
-									<td>Spitalul Elias 1</td>
-									<td>1, spital, maternitate</td>						
-									<td>Bucuresti</td>						
-									<td>Sector 1</td>						
-									<td>14-mar-2015 14:23</td>						
-									<td>14-mar-2015 09:00</td>						
-									<td>23</td>						
-									<td>45:00</td>						
-									<td></td>					
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>
-										<input type="checkbox" name=""/>
-									</td>
-									<td></td>
-									<td>Spitalul Elias 1</td>
-									<td>1, spital, maternitate</td>						
-									<td>Bucuresti</td>						
-									<td>Sector 1</td>						
-									<td>14-mar-2015 14:23</td>						
-									<td>14-mar-2015 09:00</td>						
-									<td>23</td>						
-									<td>45:00</td>						
-									<td></td>					
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>
-										<input type="checkbox" name=""/>
-									</td>
-									<td></td>
-									<td>Spitalul Elias 1</td>
-									<td>1, spital, maternitate</td>						
-									<td>Bucuresti</td>						
-									<td>Sector 1</td>						
-									<td>14-mar-2015 14:23</td>						
-									<td>14-mar-2015 09:00</td>						
-									<td>23</td>						
-									<td>45:00</td>						
-									<td></td>					
-								</tr>
-														
 							</tbody>
 						</table>			  
 				    </div>
