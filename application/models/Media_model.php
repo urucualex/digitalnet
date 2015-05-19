@@ -58,20 +58,20 @@ class Media_model extends Generic_model
     }
 
     public function getAllMediaOnDate($date) {
+        $result = $this->read_all([
+                'order_by' => 'order',
+                'where' => [
+                    'OR' => [
+                        'AND' => [
+                            'useDateInterval' => '1',
+                            'startDate<=' => $date,
+                            'endDate>=' => $date
+                        ],  
+                        'useDateInterval' => '0'
+                    ]
+                ]
+            ]);
 
-        $this->db->select('*');
-        $this->db->where([
-                    'startDate<=' => $date,
-                    'endDate>=' => $date,
-                ]);
-        $this->db->or_where([
-                    'startDate' => '0000-00-00',
-                    'endDate' => '0000-00-00',
-                ]);
-
-        $this->db->order_by('order');
-
-        $result = $this->db->get($this->_table)->result_array();
         return $result;
     }
 
