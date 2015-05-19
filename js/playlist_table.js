@@ -17,8 +17,10 @@ function playlistTable(){
 					currentPlaylistTime += _.parseInt(row['duration'], 10) + 1;
 				})
 			},
-			onData: function(rows) {
-console.log('onData', rows);
+			onDataFetch: function() {
+				return {timestamp: Date.now()};
+			},
+			onDataFetched: function(rows) {
 				_.forEach(rows, function(row, rowIndex) {
 					var start = new Date(row['startDate']),
 						end = new Date(row['endDate']);

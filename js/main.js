@@ -1,7 +1,9 @@
 // On document load
 $(function(){
 	// Enable js/jquery items
-		$('#main-media-table').each(mainMediaTable);
+		$('#main-media-table').each(function() {
+			mediaTable = mainMediaTable($(this));
+		});
 		$('#main-players-table').each(mainPlayersTable);
 		$('#playlist-table').each(playlistTable);
 		$('#media-players-table').each(mediaPlayersTable);
@@ -42,6 +44,19 @@ $(function(){
 
 		selectPlayers(selectedMediaIds);
 	});
+
+	$(document).on('change', '#media-list-date', function(event) {
+		var val = $('#media-list-date').val()
+		mediaTable.updateSettings({
+			onDataFetch: function() {
+				return {
+					date: val,
+					timestamp: Date.now()
+				}
+			}
+		});
+		mediaTable.update();
+	})
 
 });
 

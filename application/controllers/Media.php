@@ -81,4 +81,18 @@ class Media extends Generic_Controller {
 
 		echo json_encode($this->data['players']);
 	}	
+
+	public function items() {
+		$params = $this->input->post();
+		$data = [];
+		if (!empty($params) and (array_key_exists('date', $params))) {
+			$data = $this->media_model->getAllMediaOnDate($params['date']);				
+		}
+
+		if ($this->input->is_ajax_request()) {
+			echo json_encode($data);
+		} else {
+			$this->load->view('medias', $data);
+		}
+	}
 }

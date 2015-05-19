@@ -14,7 +14,7 @@ function mainPlayersTable() {
 		multipleSelect: false,
 		onRowDblClicked: function(value, row, column, rowData) {
 			var win = window.open('/players/item/' + rowData['playerId'], '_blank');
-			win.focus();		
+			//win.focus();		
 		},
 		columns: [
 			{

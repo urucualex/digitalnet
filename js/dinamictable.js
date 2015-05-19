@@ -32,7 +32,9 @@ var DinamicTable = function(settings) {
 		onKeyPress: null,
 		onKeyPressed: null,
 		onRender: null,
-		onData: null
+		onRendered: null,
+		onDataFetch: null,
+		onDataFetched: null
 	}
 
 	var defaultColumnSettings = {
@@ -144,6 +146,10 @@ console.log('settings', settings);
 			render();
 		}
 
+		this.update = function() {
+			refreshData();
+		}
+
 		this.url = function(url) {
 			if (url === undefined) {
 				return settings.url;
@@ -176,23 +182,40 @@ console.log('settings', settings);
 
 				render();
 			}
+		}
 
+		this.updateSettings = function(newSettings) {
+			if (!_.isPlainObject(newSettings)) {
+				return false;
+			}
 
+			_.extend(settings, newSettings);
+			return true;
 		}
 
 	//----------------------------------- Private functions --------------------------------
 
 		function refreshData() {
+			// Prepare data to send for refresh
+			var data;
+			if (_.isFunction(settings.onDataFetch)) {
+				data = settings.onDataFetch();
+			}
+
+			if (data === false) {
+				return;
+			}
+
 			var request = $.ajax({
 				url: settings.url,
-				data: {timeStamp: lastSync},
+				data: data,
 				type: 'POST',
 				dataType: 'json',
 			});
 
 			request.done(function(data) {
-				if (_.isFunction(settings.onData)) {
-					settings.onData(data);
+				if (_.isFunction(settings.onDataFetched)) {
+					settings.onDataFetched(data);
 				}
 				syncData(data);
 				render();

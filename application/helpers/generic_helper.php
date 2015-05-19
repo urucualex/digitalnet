@@ -473,6 +473,10 @@
         return $Date2;
     }
 
+    function iso_date_now() {
+        return date('Y-m-d');
+    }
+
 if (!function_exists('array_column'))
 {    
     function array_column($Array, $Column, $Index_column = NULL)

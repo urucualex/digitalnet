@@ -8,7 +8,7 @@
 		<div class="col-sm-2 sidebar">
 			<ul class="nav nav-sidebar">
 				<li>
-					<label>Data: <input type="date" class="form-control" value="2015-05-15"></label>
+					<label>Data: <input type="date" id="media-list-date" class="form-control" value="<?=iso_date_now()?>"></label>
 				</li>
 				<li>
 					<a href="/media/item"><span class="glyphicon glyphicon-plus"></span> Adauga</a>

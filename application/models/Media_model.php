@@ -57,4 +57,22 @@ class Media_model extends Generic_model
         parent::__construct();
     }
 
+    public function getAllMediaOnDate($date) {
+
+        $this->db->select('*');
+        $this->db->where([
+                    'startDate<=' => $date,
+                    'endDate>=' => $date,
+                ]);
+        $this->db->or_where([
+                    'startDate' => '0000-00-00',
+                    'endDate' => '0000-00-00',
+                ]);
+
+        $this->db->order_by('order');
+
+        $result = $this->db->get($this->_table)->result_array();
+        return $result;
+    }
+
 }

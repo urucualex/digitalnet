@@ -170,7 +170,39 @@ String.prototype.toDate = function(separator) {
 		separator = '-';
 	}
 
-	return date.getDate().twoDigits() + separator + date.getMonth().twoDigits() + separator + date.getFullYear();
+	return date.getDate().twoDigits() + separator + (date.getMonth() + 1).twoDigits() + separator + date.getFullYear();
+}
+
+String.prototype.toIsoDate = function(separator) {
+	var date = new Date(this);
+
+	if (separator === undefined) {
+		separator = '-';
+	}
+
+	return   date.getFullYear() + separator + (date.getMonth() + 1).twoDigits() + separator + date.getDate().twoDigits();
+}
+
+// Unix time to date
+Number.prototype.toDate = function(separator) {
+	var date = new Date(this);
+
+	if (separator === undefined) {
+		separator = '-';
+	}
+
+	return date.getDate().twoDigits() + separator + (date.getMonth() + 1).twoDigits() + separator + date.getFullYear();
+}
+
+// Unix time to isoDate
+Number.prototype.toIsoDate = function(separator) {
+	var date = new Date(this);
+
+	if (separator === undefined) {
+		separator = '-';
+	}
+
+	return   date.getFullYear() + separator + (date.getMonth() + 1).twoDigits() + separator + date.getDate().twoDigits();
 }
 
 Number.prototype.toDays = function() {
