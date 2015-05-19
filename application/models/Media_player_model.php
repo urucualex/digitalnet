@@ -91,10 +91,22 @@ class Media_player_model extends Generic_model
         return true;
     }
 
-    public function playlist($playerId) {
+    public function playlist($playerId, $date) {
         return $this->read_all([
             'order_by' => 'order', 
-            'where' => [$this->_table.'.playerId' => $playerId],
+            'where' => [
+                $this->_table.'.playerId' => $playerId,
+                'OR' => [
+                    'AND' => [
+                        'media.useDateInterval' => '1',
+                        'media.startDate<=' => $date,
+                        'media.endDate>=' => $date
+                    ],
+                    'OR' => [
+                        'media.useDateInterval' => '0'
+                    ]                
+                ]
+            ],
             'join' => true
         ]);
     }

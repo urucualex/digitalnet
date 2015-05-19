@@ -67,9 +67,18 @@ class Media extends Generic_Controller {
 	}
 
 	public function playlist($playerId) {
-		$this->load->model('media_player_model');
+		$date = iso_date_now();
 
-		$this->data['medias'] = $this->media_player_model->playlist($playerId);
+		$params = $this->input->post(null, true);
+debug('playlist params', $params);
+		if (!empty($params)) {
+			if (array_key_exists('date', $params)) {
+				$date = $params['date'];
+			}
+		}
+
+		$this->load->model('media_player_model');
+		$this->data['medias'] = $this->media_player_model->playlist($playerId, $date);
 
 		echo json_encode($this->data['medias']);
 	}

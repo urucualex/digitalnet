@@ -112,7 +112,12 @@
 				    				<div class="form-group">
 				    					<label class="col-sm-1 control-label">Data</label>
 				    					<div class="col-sm-2">
-				    						<input type="date" class="form-control" name="name"/>
+				    						<input 	type="date" 
+				    								class="form-control" 
+				    								name="name" 
+				    								id="playlist-date"
+				    								value="<?=iso_date_now()?>"
+				    						/>
 				    					</div>	    					
 				    				</div>								
 								</form>	

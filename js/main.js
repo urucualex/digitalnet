@@ -58,6 +58,18 @@ $(function(){
 		mediaTable.update();
 	})
 
+	$(document).on('change', '#playlist-date', function() {
+		var val = $('#playlist-date').val()
+		playlistTable.updateSettings({
+			onDataFetch: function() {
+				return {
+					date: val
+				}
+			}
+		});
+		playlistTable.update();		
+	})
+
 });
 
 // If media uploaded update file duration field

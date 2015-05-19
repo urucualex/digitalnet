@@ -1093,6 +1093,34 @@ class Generic_Model extends CI_Model
         return TRUE;
     }
 
+    private function parse_where($Where, $Escape = TRUE, $Operator = ' AND ') {
+        $where = '';
+
+        if (is_array($Where)) {
+            foreach ($Where as $key => $item) {
+                $escape = $Escape;
+                if (is_array($item)) {
+                    $item = '('.$this->parse_where($item, $Escape, ' '.$key.' ').')';
+                    $escape = FALSE;
+                    $key = NULL;
+                }
+
+                if (in_array(substr(trim($item), 0, 1), ['[', '\'', '`'])) {
+                    $escape = FALSE;
+                }
+
+                $sign = '=';
+                if (in_array(substr(trim($key), -1), ['=', '>', '<'])) {
+                    $sign = '';
+                }
+
+                $where = (empty($where) ? '' : $where.$Operator).($key != NULL ? $key.$sign : '').($escape ? $this->db->escape($item) : $item);
+            }
+        }
+
+        return $where;
+    }
+
     //get items list
     public function read_all( $Settings = ['offset' => 0, 'limit' => NULL, 'order_by' => NULL, 'sort_order' => 'asc', 'select' => '*', 'where' => NULL, 'join' => FALSE, 'distinct' => FALSE])
     {
@@ -1178,7 +1206,9 @@ debug('Use_join: ', $Use_join);
 
             $this->add_account_check($Where);
 
-            $this->db->where($Where, NULL, !$__do_not_escape);
+            $Where = $this->parse_where($Where);
+
+            $this->db->where($Where, NULL, FALSE); //!$__do_not_escape);
             if ($__do_not_escape)
             {
                 $Where['__do_not_escape'] = TRUE;
@@ -1198,7 +1228,7 @@ debug('Use_join: ', $Use_join);
         $return = $this->db->select($Select, !$__do_not_escape)
                         ->get($this->table())
                         ->result_array();
-//debug('Query: ', $this->db->last_query());
+debug('Query: ', $this->db->last_query());
         return $return;
     }
 
