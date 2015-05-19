@@ -4,6 +4,7 @@ function mainMediaTable(){
 			container: this,
 			url: '/media/items',
 			source: 'medias',
+			manualOrder: true,
 			refreshInterval: 10000,
 			idColumn: 'idMedia',
 			multipleSelect: true,

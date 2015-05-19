@@ -284,9 +284,12 @@ console.log('settings', settings);
 			selectedRowsIndex.reverse()
 			
 
-			selectedRowsIndex.forEach(function(rowIndex) {
+			_.forEach(selectedRowsIndex, function(rowIndex) {
 				if (cont) {
 					cont = self.moveRow(rowIndex, 1 + rowIndex);
+				} 
+				else {
+					return false;
 				}
 			});
 		}
@@ -295,9 +298,12 @@ console.log('settings', settings);
 			var cont = true;
 			var selectedRowsIndex = self.getSelectedRowsIndex();
 
-			selectedRowsIndex.forEach(function(rowIndex) {
+			_.forEach(selectedRowsIndex, function(rowIndex) {
 				if (cont) {
 					cont = self.moveRow(rowIndex, rowIndex - 1);
+				} 
+				else {
+					return false;
 				}
 			});
 		}
