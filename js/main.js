@@ -70,6 +70,11 @@ $(function(){
 		playlistTable.update();		
 	})
 
+	$(document).on('keyup', '#players-table-filter', function() {
+		var val = $('#players-table-filter').val();
+		playersTable.setFilter(val);
+	})
+
 });
 
 // If media uploaded update file duration field

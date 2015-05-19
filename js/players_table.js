@@ -5,7 +5,7 @@ function mainPlayersTable() {
 
 	console.log('main-media-table', this);
 
-	var playersTable = new DinamicTable( {
+	playersTable = new DinamicTable( {
 		container: this,
 		url: '/players/items',
 		source: 'players',

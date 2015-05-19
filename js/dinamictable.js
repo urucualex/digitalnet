@@ -5,6 +5,7 @@ var DinamicTable = function(settings) {
 	var tableElement;
 	var tableIsFocused = false;
 	var lastSortedAscending = false;
+	var filters = [];
 
 	var cellRenderer = function(value, row, column, rowData) {
 		return value;
@@ -193,6 +194,14 @@ console.log('settings', settings);
 			return true;
 		}
 
+		this.setFilter = function(filter) {
+			filters = filter.split(',');
+			_.forEach(filters, function(item, index) {
+				filters[index] = item.toString().trim();
+			});
+			render();
+		}
+
 	//----------------------------------- Private functions --------------------------------
 
 		function refreshData() {
@@ -273,7 +282,32 @@ console.log('settings', settings);
 
 			var tableBody = tableElement.find('tbody');
 			tableBody.empty();
-			rows.forEach(function(row, rowIndex) {
+
+			var filter = filters.length;
+
+			if (filters.length) {
+				filteredRows = _.filter(rows, function(row) {
+					var values = _.values(row);
+					valuesStr = values.toString().toLowerCase();
+					passed = false;
+					_.forEach(filters, function(filter) {
+						if (valuesStr.search(filter.toLowerCase()) > -1) {
+							passed = true;
+						}
+						else {
+							passed = false;
+						}
+						return passed;
+					});
+
+					return passed;
+				});
+			}
+			else {
+				filteredRows = rows;
+			}
+
+			filteredRows.forEach(function(row, rowIndex) {
 				var newRow = $('<tr data-row-index="' + rowIndex + '"></tr>');
 				newRow.get(0)['rowData'] = row;
 				settings.columns.forEach(function (column, colIndex) {

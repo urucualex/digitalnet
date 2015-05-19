@@ -21,6 +21,7 @@
 				</li>
 				<li>
 					<h3>Filtre</h3>
+					<input class="form-control" id="players-table-filter" value="" style="width: 90%; margin-left: 20px; margin-bottom: 10px"/>
 					<div class="filter-list-box">
 						<ul>
 							<li class="checkbox">
