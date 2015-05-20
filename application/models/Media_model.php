@@ -57,6 +57,25 @@ class Media_model extends Generic_model
         parent::__construct();
     }
 
+    public function getLastOrderIndex() {
+        $query = sprintf("SELECT max(`order`) as maxorder FROM %s", $this->_table);
+        $result = $this->db->query($query)->result_array();
+
+        if (!empty($result)) {
+            return $result[0]['maxorder'];
+        }
+
+        return 0;
+    }
+
+    public function create(&$Data, $Neighbour_id = NULL, $After = 1, $Create_with_id = false) {
+        if (!array_key_exists('order', $Data) or !($Data['order'] > 0)) {
+            $Data['order'] = $this->getLastOrderIndex() + 1;
+        }
+
+        return parent::create($Data, $Neighbour_id, $After, $Create_with_id);
+    }
+
     public function getAllMediaOnDate($date) {
         $result = $this->read_all([
                 'order_by' => 'order',
