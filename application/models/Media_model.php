@@ -75,4 +75,28 @@ class Media_model extends Generic_model
         return $result;
     }
 
+    public function setPlaylistOrder($MediaIds, $Order) {
+
+        if (!is_array($MediaIds)) {
+            error('Media_model->setPlaylistOrder: $MediaIds must be an array', $MediaIds);
+        }
+
+        if (!is_array($Order)) {
+            error('Media_model->setPlaylistOrder: $Order must be an array', $Order);
+        }
+
+        if (count($MediaIds) != count($Order)) {
+            error('Media_model->setPlaylistOrder: $MediaIds and $Order must have the same number of elements', ['MediaIds' => $MediaIds, 'Order' => $Order]);            
+        }
+
+        $this->db->trans_start();
+        foreach ($MediaIds as $key => $mediaId) {
+            $query = sprintf("UPDATE %s SET `order` = '%s' WHERE `mediaId` = '%s'", 
+                            $this->_table,
+                            $Order[$key],
+                            $mediaId);
+            $this->db->query($query);
+        }
+        $this->db->trans_complete();
+    }
 }

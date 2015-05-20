@@ -65,6 +65,10 @@ console.log('settings', settings);
 
 	//----------------------------------- Public functions ---------------------------------
 
+		this.getAllRows = function() {
+			return rows;
+		}
+
 		this.selectAllRows = function() {
 			tableElement.find('tbody').find('tr').addClass('selected');
 		}

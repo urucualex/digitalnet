@@ -104,4 +104,11 @@ debug('playlist params', $params);
 			$this->load->view('medias', $data);
 		}
 	}
+
+	public function setOrder() {
+		$mediaIds = $this->input->post('mediaIds', true);
+		$mediaOrder = $this->input->post('order', true);
+
+		$this->media_model->setPlaylistOrder($mediaIds, $mediaOrder);
+	}
 }

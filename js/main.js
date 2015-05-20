@@ -73,8 +73,38 @@ $(function(){
 	$(document).on('keyup', '#players-table-filter', function() {
 		var val = $('#players-table-filter').val();
 		playersTable.setFilter(val);
-	})
+	});
+
+	$(document).on('click', '[data-action=save-media-order]', function(event) {
+		event.preventDefault();
+		showConfirmBox('Salveaza ordinea playlistului', 'Esti sigur ca vrei sa salvezi ordinea playlistului?', savePlaylistOrder);
+	});
 });
+
+function savePlaylistOrder() {
+	media = mediaTable.getAllRows();
+	mediaIds = _.pluck(media, 'mediaId');
+	mediaOrders = _.pluck(media, 'order');
+	mediaOrders = _.sortBy(mediaOrders);
+
+	request = $.ajax({
+		url: '/media/setOrder',
+		type: 'POST',
+		data: {
+			mediaIds: mediaIds, 
+			order: mediaOrders
+		}
+	});
+
+	request.always(function(data1, data2) {
+		console.log('/media/setOrder response', data1, data2);
+	});
+
+	request.done(function() {
+		mediaTable.update();
+		showMessageBox('Succes!', 'Ordinea playlist-ului a fost salvata!');
+	});	
+}
 
 // If media uploaded update file duration field
 function mediaUploaded(data) {
