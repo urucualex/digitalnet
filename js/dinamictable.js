@@ -50,6 +50,7 @@ var DinamicTable = function(settings) {
 		headRenderer: headRenderer,
 	};
 
+	var refreshFunctionHandler;
 	//---------------------------------- Init ---------------------------------------------
 
 	settings = _.extend({}, defaultSettings, settings);
@@ -62,6 +63,10 @@ var DinamicTable = function(settings) {
 console.log('settings', settings);
 	init();
 	refreshData();
+
+	if (settings.refreshInterval > 0) {
+		refreshFunctionHandler = setInterval(refreshData, settings.refreshInterval);
+	}
 
 	//----------------------------------- Public functions ---------------------------------
 
