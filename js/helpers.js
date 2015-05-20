@@ -35,7 +35,7 @@ function showConfirmBox(title, message, callback) {
 	$('#confirm-box').show();
 	$('#overlay').show();
 
-	$('#confirm-box').find('[data-action=confirm-box-ok]').click(function() {
+	$('#confirm-box').find('[data-action=confirm-box-ok]').unbind('click').click(function() {
 		hideConfirmBox();
 		if (_.isFunction(callback)){
 			callback();
