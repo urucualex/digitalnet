@@ -167,7 +167,18 @@
 				    						/>
 				    					</div>	    					
 				    				</div>
-				    					  
+				    				
+				    				<div class="form-group">
+				    					<label class="col-sm-2 control-label">Observatii</label>
+				    					<div class="col-sm-8">
+				    						<textarea 	class="form-control" 
+				    									name="comment"
+				    									placeholder="Bla bla bla...."
+				    									rows="10"
+				    						><?=(array_key_exists('comment', $media)) ? $media['comment'] : ''?></textarea>
+				    					</div>	    					
+				    				</div>
+
 				    				<div class="col-sm-10 col-sm-offset-1">
 				    					<button class="btn btn-primary"> <span class="glyphicon glyphicon-ok">	</span> OK</button>
 				    				</div>

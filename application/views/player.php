@@ -79,6 +79,17 @@
 				    						/>
 				    					</div>	    					
 				    				</div>
+				    				
+				    				<div class="form-group">
+				    					<label class="col-sm-2 control-label">Observatii</label>
+				    					<div class="col-sm-8">
+				    						<textarea 	class="form-control" 
+				    									name="comment"
+				    									placeholder="Bla bla bla...."
+				    									rows="6"
+				    						><?=(array_key_exists('comment', $player)) ? $player['comment'] : ''?></textarea>
+				    					</div>	    					
+				    				</div>
 
 				    				<div class="form-group">
 				    					<input type="hidden" name="playerActive" value="0"/>
