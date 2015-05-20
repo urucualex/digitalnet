@@ -50,6 +50,28 @@
             </div>
         </div>
 
+        <div class="row" id="confirm-box">
+            <div class="col-md-offset-4 col-md-4">
+                <div class="panel panel-danger" > 
+                    <div class="panel-heading">Title</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 message-content" style="text-align: center">
+                                Some message that must be shown
+                            </div>
+                        </div>
+                        <p> </p>
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-10">
+                                <button type="button" class="btn btn-danger action" data-action="confirm-box-ok">Ok</button>
+                                <button type="button" class="btn btn-primary action" data-action="confirm-box-cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+
         <!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script-->
         <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 

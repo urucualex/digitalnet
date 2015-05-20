@@ -2,16 +2,45 @@ $(function() {
 
 	// Hide message box when clicking on ok
 	$("#message-box").on('click', '[data-action=message-box-hide]', function() {
-		$('#message-box').hide();
-		hideOverlay();
+		hideMessageBox();
 	});
+
+	// Hide message box when clicking on ok
+	$("#confirm-box").on('click', '[data-action=confirm-box-cancel]', function() {
+		hideConfirmBox();
+	});
+
 });
+
+function hideMessageBox() {
+	$('#message-box').hide();
+	hideOverlay();
+}
 
 function showMessageBox(title, message) {
 	$('#message-box .panel-heading').html(title);
 	$('#message-box .message-content').html(message);
 	$('#message-box').show();
 	$('#overlay').show();
+}
+
+function hideConfirmBox() {
+	$('#confirm-box').hide();
+	hideOverlay();	
+}
+
+function showConfirmBox(title, message, callback) {
+	$('#confirm-box .panel-heading').html(title);
+	$('#confirm-box .message-content').html(message);
+	$('#confirm-box').show();
+	$('#overlay').show();
+
+	$('#confirm-box').find('[data-action=confirm-box-ok]').click(function() {
+		hideConfirmBox();
+		if (_.isFunction(callback)){
+			callback();
+		}
+	});
 }
 
 function showOverlay() {
