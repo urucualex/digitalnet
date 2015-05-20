@@ -87,6 +87,7 @@ function savePlaylistOrder() {
 	mediaOrders = _.pluck(media, 'order');
 	mediaOrders = _.sortBy(mediaOrders);
 
+	showOverlay();
 	request = $.ajax({
 		url: '/media/setOrder',
 		type: 'POST',
@@ -97,6 +98,7 @@ function savePlaylistOrder() {
 	});
 
 	request.always(function(data1, data2) {
+		hideOverlay();
 		console.log('/media/setOrder response', data1, data2);
 	});
 
