@@ -122,8 +122,8 @@ function playlistTable(){
 					source: 'startDate',
 					sortable: true,
 					width: 'auto',
-					cellRenderer: function(value) {
-						if (value == '0000-00-00') {
+					cellRenderer: function(value, row, column, rowData) {
+						if ((value == '0000-00-00') || (rowData['useDateInterval'] == '0')) {
 							return '';
 						}
  						return value.toString().toDate();
@@ -134,8 +134,8 @@ function playlistTable(){
 					source: 'endDate',
 					sortable: true,
 					width: 'auto',
-					cellRenderer: function(value) {
-						if (value == '0000-00-00') {
+					cellRenderer: function(value, row, column, rowData) {
+						if ((value == '0000-00-00') || (rowData['useDateInterval'] == '0')) {
 							return '';
 						}
 						return value.toString().toDate();
