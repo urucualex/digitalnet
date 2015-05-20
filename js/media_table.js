@@ -7,7 +7,7 @@ function mainMediaTable(container){
 		source: 'medias',
 		manualOrder: true,
 		refreshInterval: 10000,
-		idColumn: 'idMedia',
+		idColumn: 'mediaId',
 		multipleSelect: true,
 		onRender: function(rows) {
 			var currentPlaylistTime = 0;

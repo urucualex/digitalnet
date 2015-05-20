@@ -8,7 +8,7 @@ function playlistTable(){
 			url: '/media/playlist/' + playerId,
 			source: 'medias',
 			refreshInterval: 10000,
-			idColumn: 'idMedia',
+			idColumn: 'mediaId',
 			multipleSelect: true,
 			onRender: function(rows) {
 				var currentPlaylistTime = 0;
