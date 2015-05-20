@@ -76,12 +76,18 @@ console.log('settings', settings);
 
 		this.selectAllRows = function() {
 			tableElement.find('tbody').find('tr').addClass('selected');
+			_.forEach(rows, function(item, index) {
+				rows[index]['__selected'] = true;
+			});			
 		}
 
 		this.invertRowsSelection = function() {
 			var selected = tableElement.find('tbody').find('tr.selected');
 			self.selectAllRows();
 			selected.removeClass('selected');
+			_.forEach(rows, function(item, index) {
+				rows[index]['__selected'] = !rows[index]['__selected'];
+			});			
 		}
 
 		this.getSelectedRowsIndex = function() {
@@ -245,7 +251,6 @@ console.log('settings', settings);
 				console.error('Data for table is not array', data);
 				return;
 			}
-
 			if (rows.length == 0) {
 				rows = data;
 			}
@@ -259,6 +264,7 @@ console.log('settings', settings);
 
 					// if found update data
 					if (rowIndex > -1) {
+						item['__selected'] = rows[rowIndex]['__selected'];
 						rows[rowIndex] = item;
 					}
 					else {
@@ -332,6 +338,9 @@ console.log('settings', settings);
 						newRow.append($newCell);
 					}
 				});
+				if (row['__selected']) {
+					newRow.addClass('selected');
+				}
 				var tableRow = tableBody.append(newRow);
 			});
 		}
@@ -397,21 +406,29 @@ console.log('settings', settings);
 				if (_.isFunction(settings.onRowClick) && settings.onRowClick(event) === false) {
 					return;
 				}
-				var $this = $(this);
+				var $this = $(this),
+				 	rowIndex = $this.attr('data-row-index');
 
 				if (settings.multipleSelect) {
 					if ($this.hasClass('selected')) {
 						$this.removeClass('selected');
+						rows[rowIndex]['__selected'] = false;
 					}
 					else {
 						$this.addClass('selected');
+						rows[rowIndex]['__selected'] = true;
 					}					
 				}
 				else {
 					var remove = $this.hasClass('selected');
 					tableElement.find('.selected').removeClass('selected');
+					_.forEach(rows, function(item, index) {
+						rows[index]['__selected'] = false;
+					});
+
 					if (!remove) {
 						$this.addClass('selected');
+						rows[rowIndex]['__selected'] = true;
 					}
 				}
 
