@@ -74,7 +74,6 @@ $(function(){
 		var val = $('#players-table-filter').val();
 		playersTable.setFilter(val);
 	})
-
 });
 
 // If media uploaded update file duration field

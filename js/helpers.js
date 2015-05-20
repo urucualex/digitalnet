@@ -1,3 +1,19 @@
+$(function() {	
+
+	// Hide message box when clicking on ok
+	$("#message-box").on('click', '[data-action=message-box-hide]', function() {
+		$('#message-box').hide();
+		hideOverlay();
+	});
+});
+
+function showMessageBox(title, message) {
+	$('#message-box .panel-heading').html(title);
+	$('#message-box .message-content').html(message);
+	$('#message-box').show();
+	$('#overlay').show();
+}
+
 function showOverlay() {
 	$('#overlay').show();
 }

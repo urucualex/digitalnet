@@ -29,6 +29,27 @@
             </div>
         </div>
 
+        <div class="row" id="message-box">
+            <div class="col-md-offset-4 col-md-4">
+                <div class="panel panel-primary" > 
+                    <div class="panel-heading">Title</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 message-content" style="text-align: center">
+                                Some message that must be shown
+                            </div>
+                        </div>
+                        <p> </p>
+                        <div class="row">
+                            <div class="col-md-offset-4 col-md-4">
+                                <button type="button" class="btn btn-primary action" data-action="message-box-hide">Ok</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script-->
         <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
