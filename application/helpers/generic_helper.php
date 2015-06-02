@@ -563,3 +563,30 @@ if (!function_exists('array_column'))
 
         return (($hours > 0) || $includeHours ? twoDigits($hours) . $separator : '') . twoDigits($minutes) . $separator . twoDigits($seconds);
     }
+
+function isRangeRequest() {
+    $result = false;
+
+    if ( isset($_SERVER['HTTP_RANGE']) ) {
+        // find the requested range
+        // this might be too simplistic, apparently the client can request
+        // multiple ranges, which can become pretty complex, so ignore it for now
+        preg_match('/bytes=(\d+)-(\d+)?/', $_SERVER['HTTP_RANGE'], $matches);
+
+        $startOffset = intval($matches[1]);
+        if (array_key_exists('2', $matches)) {
+            $endOffset = intval($matches[2]);
+        }
+        else {
+            $endOffset = 0;
+        }
+
+
+        $result = array(
+            'offset' => $startOffset,
+            'length' => ($endOffset > 0 ? $endOffset - $startOffset : NULL)
+        );
+    }
+
+    return $result;
+}

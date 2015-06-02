@@ -244,8 +244,21 @@ class Generic_file_model extends Generic_Model
 
         if ($fp)
         {
+            $fileSize = filesize($file_path);
+
+            if ($rangeRequest = isRangeRequest()) {
+                header('HTTP/1.1 206 Partial Content');
+                if ($rangeRequest['length']) {
+                    header('Content-Range: bytes ' . $rangeRequest['offset'] . '-' . ($rangeRequest['offset'] + $rangeRequest['length']) . '/' . $fileSize);
+                }
+                else {
+                    header('Content-Range: bytes ' . $rangeRequest['offset'] . '-' . ($fileSize - $rangeRequest['length']) . '/' . $fileSize);
+                }
+                fseek($fp, $rangeRequest['offset']);
+            }
+
             header('Content-Type: '.$file_mime_type);
-            header('Content-Length: '.filesize($file_path));
+            header('Content-Length: '.$fileSize);
 
             fpassthru($fp);
         }
