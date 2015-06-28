@@ -49,48 +49,59 @@ class Player_model extends Generic_model
                     )
                 , 'mfStart' => array(
                           'column_name' => 'Ora de start luni-vineri'
-                        , 'trim' => true    
+                        , 'trim' => true
                         , 'integer' => true
                         , 'min' => 0
-                        , 'max' => 23                
+                        , 'max' => 23
                     )
                 , 'mfEnd' => array(
                           'column_name' => 'Ora de inchidere luni-vineri'
-                        , 'trim' => true    
+                        , 'trim' => true
                         , 'integer' => true
                         , 'min' => 0
-                        , 'max' => 23                    
+                        , 'max' => 23
                     )
                 , 'satStart' => array(
                           'column_name' => 'Ora de start sambata'
-                        , 'trim' => true    
+                        , 'trim' => true
                         , 'integer' => true
                         , 'min' => 0
-                        , 'max' => 23                
+                        , 'max' => 23
                     )
                 , 'satEnd' => array(
                           'column_name' => 'Ora de inchidere sambata'
-                        , 'trim' => true    
+                        , 'trim' => true
                         , 'integer' => true
                         , 'min' => 0
-                        , 'max' => 23                    
+                        , 'max' => 23
                     )
                 , 'sunStart' => array(
                           'column_name' => 'Ora de start duminica'
-                        , 'trim' => true    
+                        , 'trim' => true
                         , 'integer' => true
                         , 'min' => 0
-                        , 'max' => 23                
+                        , 'max' => 23
                     )
                 , 'sunEnd' => array(
                           'column_name' => 'Ora de inchidere duminica'
-                        , 'trim' => true    
+                        , 'trim' => true
                         , 'integer' => true
                         , 'min' => 0
-                        , 'max' => 23                    
-                    )                                    
+                        , 'max' => 23
+                    )
             );
 
         parent::__construct();
+    }
+
+    public function updatePlayingFile($playerCode, $mediaFile) {
+        $now = date('Y-m-d H:i:s');
+
+        $updateData = ['playedFile' => $mediaFile, 'lastMessage' => $now];
+        return $this->update_where(['code' => $playerCode], $updateData);
+    }
+
+    public function getPlayerByCode($code) {
+        return $this->read_by('code', $code);
     }
 }
