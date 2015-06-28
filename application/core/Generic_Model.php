@@ -70,8 +70,8 @@ class Generic_Model extends CI_Model
         parent::__construct();
 
         $this->load->database();
-        
-        if ($this->_verify_account) 
+
+        if ($this->_verify_account)
         {
             $this->load->model('user_model');
             $this->set_user_rights_from_config($this->_model);
@@ -79,10 +79,10 @@ class Generic_Model extends CI_Model
 
 
         //add id to standatd validation
-        if (!empty($this->_id_column)) 
+        if (!empty($this->_id_column))
         {
             $this->_create_validation_rules = array_merge($this->id_validation_rules(), $this->_create_validation_rules);
-            $this->_update_validation_rules = array_merge($this->id_validation_rules(), $this->_update_validation_rules);            
+            $this->_update_validation_rules = array_merge($this->id_validation_rules(), $this->_update_validation_rules);
         }
 
         return TRUE;
@@ -222,7 +222,7 @@ class Generic_Model extends CI_Model
 
         //set column names, they are used in error messages
         $Rules = $this->add_column_names_to_validation_rules($Rules, $Data);
-//debug('Validation rules:', print_r($Rules, TRUE));        
+//debug('Validation rules:', print_r($Rules, TRUE));
         foreach ($Rules as $column=>$rules)
         {
 //debug('Column: ', $column);
@@ -271,8 +271,8 @@ class Generic_Model extends CI_Model
                                 //value of 0 is empty only if column is of type integer
                                 //in php empty(0) === TRUE
 
-                                if (!array_key_exists($column, $Data) 
-                                    or ($Data[$column] === '') 
+                                if (!array_key_exists($column, $Data)
+                                    or ($Data[$column] === '')
                                     or (array_key_exists('integer', $rules) and ($rules['integer'] === TRUE) and ($Data[$column] === 0)))
                                 {
                                     if (!empty($rules['remove_if_invalid']))
@@ -831,9 +831,8 @@ class Generic_Model extends CI_Model
     {
         $function = 'read_by';
 
-        if (!empty($Columns))
-        {
-            $this->db->select($Columns);
+        if ($Columns == NULL) {
+            $Columns = "*";
         }
 
         if (!is_string($Column))
@@ -842,7 +841,7 @@ class Generic_Model extends CI_Model
             return FALSE;
         }
 
-        if (!is_string($Columns))
+        if (!empty($Columns) and !is_string($Columns))
         {
             $this->error($function, 'Columns must be string representing the columns that must be selected!', $Columns);
             return FALSE;
