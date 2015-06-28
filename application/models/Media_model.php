@@ -46,13 +46,15 @@ class Media_model extends Generic_model
                 , 'endDate' => array(
                           'column_name' => 'Sfarsit perioada de afisare'
                         , 'trim' => true
-                    )              
+                    )
                 , 'order' => array(
                           'column_name' => 'Ordine in playlist'
                         , 'trim' => true
                         , 'integer' => true
-                    )                                      
+                    )
             );
+
+        $this->load->model('media_player_model');
 
         parent::__construct();
     }
@@ -85,7 +87,7 @@ class Media_model extends Generic_model
                             'useDateInterval' => '1',
                             'startDate<=' => $date,
                             'endDate>=' => $date
-                        ],  
+                        ],
                         'useDateInterval' => '0'
                     ]
                 ]
@@ -105,17 +107,44 @@ class Media_model extends Generic_model
         }
 
         if (count($MediaIds) != count($Order)) {
-            error('Media_model->setPlaylistOrder: $MediaIds and $Order must have the same number of elements', ['MediaIds' => $MediaIds, 'Order' => $Order]);            
+            error('Media_model->setPlaylistOrder: $MediaIds and $Order must have the same number of elements', ['MediaIds' => $MediaIds, 'Order' => $Order]);
         }
 
         $this->db->trans_start();
         foreach ($MediaIds as $key => $mediaId) {
-            $query = sprintf("UPDATE %s SET `order` = '%s' WHERE `mediaId` = '%s'", 
+            $query = sprintf("UPDATE %s SET `order` = '%s' WHERE `mediaId` = '%s'",
                             $this->_table,
                             $Order[$key],
                             $mediaId);
             $this->db->query($query);
         }
         $this->db->trans_complete();
+    }
+
+    public function getPlaylistForPlayerOnDate($playerId, $date) {
+
+        //SELECT * FROM media JOIN media_player ON media_player.mediaId = media.mediaId AND media_player.playerId = $playerId
+        //      WHERE media.useDateInterval = 0 or (media.useDateInterval = 1 and media.endDate > $date)
+        $this->load->model('media_player_model');
+        $this->load->model('player_model');
+        $mediaPlayerTable = $this->media_player_model->table();
+        $mediaTable = $this->table();
+        $PlayerTable = $this->player_model->table();
+
+        $joinRule = sprintf('%s.mediaId = %s.mediaId AND %s.playerId = %s',$mediaTable, $mediaPlayerTable, $mediaPlayerTable, $playerId);
+        $this->db   ->select('*')
+                    ->from($mediaTable)
+                    ->join($mediaPlayerTable, $joinRule)
+                    ->where("useDateInterval = 0 OR (useDateInterval = 1 and endDate >= '$date')")
+                    ->order_by("$mediaTable.order");
+
+        $result = $this->db->get()->result_array();
+
+        return $result;
+    }
+
+    public function getPlaylistForPlayerToday($playerId) {
+        $date = date('Y-m-d');
+        return $this->getPlaylistForPlayerOnDate($playerId, $date);
     }
 }
