@@ -25,9 +25,16 @@ class Players extends Generic_Controller {
 
 	// return player version, playlist md5, settings md5, commands
 	public function status($playerCode) {
+		$player = $this->player_model->read_by('code', $playerCode);
+
+		if (!$player) {
+			return;
+		}
 		$this->load->config('app');
 		$playerVersion = $this->config->item('playerVersion');
 		$result = "playerVersion=$playerVersion\n";
+
+		$result .= "playlistDate=".$player['playlistLastUpdate'];
 
 		echo $result;
 	}
