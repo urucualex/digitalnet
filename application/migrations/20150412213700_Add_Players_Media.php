@@ -186,6 +186,11 @@ class Migration_Add_Players_Media extends CI_Migration {
                                 'constraint' => '2',
                                 'default' => '20'
                         ),
+                        'playerVersion' => array(
+                                'type' => 'VARCHAR',
+                                'constraint' => 10,
+                                'default' => '0.0.0'
+                        ),
                         'comment' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '1000'

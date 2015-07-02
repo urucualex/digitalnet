@@ -30,6 +30,7 @@ class Players extends Generic_Controller {
 		if (!$player) {
 			return;
 		}
+
 		$this->load->config('app');
 		$playerVersion = $this->config->item('playerVersion');
 		$result = "playerVersion=$playerVersion\n";
@@ -57,6 +58,34 @@ class Players extends Generic_Controller {
 		}
 
 		echo $result;
+	}
+
+	public function player_download($playerCode) {
+		$player = $this->player_model->getPlayerByCode($playerCode);
+
+		if (!$player) {
+            error('Could not find player by code: ', $playerCode);
+			return;
+		}
+
+		$this->load->config('app');
+		$playerFile = $this->config->item('playerFile');
+
+		if (!$playerFile) {
+			return;
+		}
+
+		$fp = fopen($playerFile, 'rb');
+        if ($fp) {
+            header('Content-Disposition: attachment; filename="' . basename($playerFile) . '"');
+            header('Content-Length: '.filesize($playerFile));
+			header('application/octet-stream');
+			fpassthru($fp);
+		}
+		else {
+            error('Could not open file: ', $playerFile);
+        }
+
 	}
 
 	public function playing($playerCode, $playingMediaFile) {
