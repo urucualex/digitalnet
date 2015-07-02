@@ -104,4 +104,10 @@ class Player_model extends Generic_model
     public function getPlayerByCode($code) {
         return $this->read_by('code', $code);
     }
+
+    public function getPlayerVersion() {
+        $this->load->config('app');
+        $config = $this->config->item('playerVersion');
+    }
+
 }
