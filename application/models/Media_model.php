@@ -78,6 +78,19 @@ class Media_model extends Generic_model
         return parent::create($Data, $Neighbour_id, $After, $Create_with_id);
     }
 
+    //$Id can be integer or array of integers
+    public function update($Id, &$Data, $Validation_rules = NULL)
+    {
+        $result = parent::update($Id, $Data, $Validation_rules);
+
+        if ($result) {
+            $this->load->model('media_player_model');
+            $this->media_player_model->updatePlaylistLastUpdateForMediaIds($result);
+        }
+
+        return $result;
+    }
+
     public function getAllMediaOnDate($date) {
         $result = $this->read_all([
                 'order_by' => 'order',
@@ -119,6 +132,9 @@ class Media_model extends Generic_model
             $this->db->query($query);
         }
         $this->db->trans_complete();
+
+        $this->load->model('media_player_model');
+        $this->media_player_model->updatePlaylistLastUpdateForMediaIds($MediaIds);
     }
 
     public function getPlaylistForPlayerOnDate($playerId, $date) {

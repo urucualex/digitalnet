@@ -88,12 +88,15 @@ class Media_player_model extends Generic_model
             $result = $this->create($data);
         }
 
+        $this->load->model('player_model');
+        $this->player_model->updatePlaylistLastUpdate($playerId);
+
         return true;
     }
 
     public function playlist($playerId, $date) {
         return $this->read_all([
-            'order_by' => 'order', 
+            'order_by' => 'order',
             'where' => [
                 $this->_table.'.playerId' => $playerId,
                 'OR' => [
@@ -104,7 +107,7 @@ class Media_player_model extends Generic_model
                     ],
                     'OR' => [
                         'media.useDateInterval' => '0'
-                    ]                
+                    ]
                 ]
             ],
             'join' => true
@@ -114,9 +117,18 @@ class Media_player_model extends Generic_model
 
     public function players($mediaId) {
         return $this->read_all([
-            'order_by' => 'county, city, playerName', 
+            'order_by' => 'county, city, playerName',
             'where' => [$this->_table.'.mediaId' => $mediaId],
             'join' => true
         ]);
-    }    
+    }
+
+    public function updatePlaylistLastUpdateForMediaIds($mediaIds) {
+        $mediaIds = toArray($mediaIds);
+
+        $query = sprintf('UPDATE players SET playlistLastUpdate = now() WHERE players.playerId in (SELECT playerId FROM media_player WHERE mediaId in (%s) )', implode(',', $mediaIds));
+        $result = $this->db->query($query);
+
+        return $result;
+    }
 }

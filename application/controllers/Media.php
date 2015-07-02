@@ -109,5 +109,8 @@ class Media extends Generic_Controller {
 		$mediaOrder = $this->input->post('order', true);
 
 		$this->media_model->setPlaylistOrder($mediaIds, $mediaOrder);
+
+		$this->load->model('media_player_model');
+		$this->media_player_model->updatePlaylistLastUpdateForMediaIds($mediaIds);
 	}
 }

@@ -46,7 +46,7 @@
         {
             return $std_message;
         }
-        
+
         return $GLOBALS['__last_error'];
     }
 
@@ -236,13 +236,13 @@
         if (!is_array($Array))
         {
             error('generic_helper - check_create_array_key: parameter $Array is not array', $Array);
-            return FALSE;            
+            return FALSE;
         }
 
         if (($Key === '') or ($Key === NULL) or ($Key === FALSE))
         {
             error('generic_helper - check_create_array_key: parameter $Key should not be empty', $Key);
-            return FALSE;                        
+            return FALSE;
         }
 
         if (!isset($Array[$Key]))
@@ -315,14 +315,14 @@
 
         return $result;
     }
-    
+
     function html_options($options, $selected_value, $value = 'value', $label = 'label')
     {
         if (!is_array($options))
         {
             return FALSE;
         }
-        foreach ($options as $key => $option) 
+        foreach ($options as $key => $option)
         {
             if (!is_array($option))
             {
@@ -335,8 +335,8 @@
                     $selected = FALSE;
                 }
 ?>
-                <option value="<?=$option?>" <?=$selected ? 'selected="selected"' : ''?>><?=$option?></option>            
-<?php                
+                <option value="<?=$option?>" <?=$selected ? 'selected="selected"' : ''?>><?=$option?></option>
+<?php
             }
             else
             {
@@ -348,9 +348,9 @@
                 {
                     $selected = FALSE;
                 }
-?>  
-                <option value="<?=$option[$value]?>" <?=$selected ? 'selected="selected"' : ''?>><?=$option[$label]?></option>            
-<?php                        
+?>
+                <option value="<?=$option[$value]?>" <?=$selected ? 'selected="selected"' : ''?>><?=$option[$label]?></option>
+<?php
             }
         }
 
@@ -368,17 +368,17 @@
         if ($date_elems[0] < 1000)
         {
             return FALSE;
-        }        
+        }
 
         if (($date_elems[1] < 1) or ($date_elems[1] > 12))
         {
             return FALSE;
-        }        
+        }
 
         if (($date_elems[1] < 1) or ($date_elems[1] > 31))
         {
             return FALSE;
-        }        
+        }
         return TRUE;
     }
 
@@ -409,7 +409,7 @@
         if ($date_elems[0] < 1000)
         {
             return FALSE;
-        }        
+        }
 
         return $date_elems[0];
     }
@@ -425,7 +425,7 @@
         if ($date_elems[0] < 1000)
         {
             return FALSE;
-        }   
+        }
 
         if (($date_elems[1] < 1) or ($date_elems[1] > 12))
         {
@@ -478,7 +478,7 @@
     }
 
 if (!function_exists('array_column'))
-{    
+{
     function array_column($Array, $Column, $Index_column = NULL)
     {
         $result = array();
@@ -501,7 +501,7 @@ if (!function_exists('array_column'))
                 }
             }
         }
-        
+
         return $result;
     }
 }
@@ -515,14 +515,14 @@ if (!function_exists('array_column'))
 
         pick_max(0, $intervals) = 'white';
         pick_max(30, $intervals) = 'white';
-        pick_max(50, $intervals) = 'grey'; 
-        pick_max(60, $intervals) = 'black'; 
-        pick_max(101, $intervals) = 'black'; 
+        pick_max(50, $intervals) = 'grey';
+        pick_max(60, $intervals) = 'black';
+        pick_max(101, $intervals) = 'black';
     */
     function pick_max($Value, $Result_array, $Default_value = FALSE)
     {
 
-        if (!is_numeric($Value)) 
+        if (!is_numeric($Value))
         {
             return $Default_value;
         }
@@ -531,7 +531,7 @@ if (!function_exists('array_column'))
 
         $result = reset($Result_array);
 
-        foreach ($Result_array as $key => $value) 
+        foreach ($Result_array as $key => $value)
         {
             if ($Value >= $key)
             {
@@ -589,4 +589,12 @@ function isRangeRequest() {
     }
 
     return $result;
+}
+
+function toArray($var) {
+    if (is_array($var)) {
+        return $var;
+    }
+
+    return [$var];
 }

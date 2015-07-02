@@ -110,4 +110,12 @@ class Player_model extends Generic_model
         $config = $this->config->item('playerVersion');
     }
 
+    public function updatePlaylistLastUpdate($playerIds) {
+        $playerIds = toArray($playerIds);
+
+        $query = sprintf('UPDATE players SET playlistLastUpdate = now() WHERE playerId in (%s)', implode(',', $playerIds));
+        $result = $this->db->query($query);
+
+        return $result;
+    }
 }
