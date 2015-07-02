@@ -2,7 +2,7 @@
 
 /*
         Player
-                - id 
+                - id
                 - name
                 - active
                 - labels
@@ -15,6 +15,7 @@
                 - last_message
                 - last_update
                 - updating
+                - playlistLastUpdate
                 - playlist_length_today
                 - playlist_count_today
                 - last_error
@@ -75,113 +76,116 @@ class Migration_Add_Players_Media extends CI_Migration {
                         'playerActive' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '1', 
+                                'constraint' => '1',
                                 'default' => '1'
                         ),
                         'playerLabels' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '1000'
-                        ),                        
+                        ),
                         'code' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '100'
-                        ),                        
+                        ),
                         'county' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '100'
-                        ),                        
+                        ),
                         'city' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '100'
-                        ),                        
+                        ),
                         'location' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '300'
-                        ),                        
+                        ),
                         'playedFile' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '100'
-                        ),                        
+                        ),
                         'playerFileDuration' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
                                 'constraint' => '8'
-                        ),                        
+                        ),
                         'lastChange' => array(
                                 'type' => 'TIMESTAMP'
-                        ),  
+                        ),
                         'lastMessage' => array(
                                 'type' => 'TIMESTAMP'
-                        ),                        
+                        ),
                         'lastUpdate' => array(
                                 'type' => 'TIMESTAMP'
-                        ),                        
+                        ),
                         'updating' => array(
                                 'type' => 'TIMESTAMP'
-                        ),                        
+                        ),
+                        'playlistLastUpdate' => array(
+                                'type' => 'TIMESTAMP'
+                        ),
                         'playlistLengthToday' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '8', 
+                                'constraint' => '8',
                                 'default' => '0'
-                        ),                        
+                        ),
                         'playlistCountToday' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '8', 
+                                'constraint' => '8',
                                 'default' => '0'
-                        ),                        
+                        ),
                         'lastError' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '300'
-                        ),                        
+                        ),
                         'lastErrorTime' => array(
                                 'type' => 'TIMESTAMP'
-                        ),                        
+                        ),
                         'externalIp' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '100'
-                        ),                        
+                        ),
                         'internalIp' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '100'
-                        ),             
+                        ),
                        'mfStart' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '2', 
+                                'constraint' => '2',
                                 'default' => '8'
-                        ),                                     
+                        ),
                        'mfEnd' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '2', 
+                                'constraint' => '2',
                                 'default' => '20'
-                        ),                                     
+                        ),
                        'satStart' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '2', 
+                                'constraint' => '2',
                                 'default' => '8'
-                        ),                                     
+                        ),
                        'satEnd' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '2', 
+                                'constraint' => '2',
                                 'default' => '20'
-                        ),                                     
+                        ),
                        'sunStart' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '2', 
+                                'constraint' => '2',
                                 'default' => '8'
-                        ),                                     
+                        ),
                        'sunEnd' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '2', 
+                                'constraint' => '2',
                                 'default' => '20'
-                        ),                                     
+                        ),
                         'comment' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '1000'
@@ -216,33 +220,33 @@ class Migration_Add_Players_Media extends CI_Migration {
                         'duration' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '8', 
+                                'constraint' => '8',
                                 'default' => '0'
                         ),
                         'useSection' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '1', 
+                                'constraint' => '1',
                                 'default' => '0'
-                        ),                        
+                        ),
                         'playStart' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '8', 
+                                'constraint' => '8',
                                 'default' => '0'
                         ),
                         'playEnd' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '8', 
+                                'constraint' => '8',
                                 'default' => '0'
                         ),
                         'useDateInterval' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '1', 
+                                'constraint' => '1',
                                 'default' => '0'
-                        ),                        
+                        ),
                         'startDate' => array(
                                 'type' => 'DATE'
                         ),
@@ -256,7 +260,7 @@ class Migration_Add_Players_Media extends CI_Migration {
                         'playersCount' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '8', 
+                                'constraint' => '8',
                                 'default' => '0'
                         ),
                         'type' => array(
@@ -266,7 +270,7 @@ class Migration_Add_Players_Media extends CI_Migration {
                         'order' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                                'constraint' => '8', 
+                                'constraint' => '8',
                                 'default' => '0'
                         ),
                         'comment' => array(
@@ -282,7 +286,7 @@ class Migration_Add_Players_Media extends CI_Migration {
                         'mediaId' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
-                        ),        
+                        ),
                         'playerId' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
@@ -291,7 +295,7 @@ class Migration_Add_Players_Media extends CI_Migration {
                                 'type' => 'TIMESTAMP',
                                 'null' => TRUE
                         )
-                ));                                    
+                ));
                 $this->dbforge->add_key('mediaId');
                 $this->dbforge->add_key('playerId');
                 $this->dbforge->create_table('media_player');

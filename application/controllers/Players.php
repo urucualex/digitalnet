@@ -42,12 +42,17 @@ class Players extends Generic_Controller {
 	public function playlist($playerCode) {
 		$this->load->model('media_model');
 		$player = $this->player_model->getPlayerByCode($playerCode);
+
+		if (!$player) {
+			return;
+		}
+
 		$playlist = $this->media_model->getPlaylistForPlayerToday($player['playerId']);
 
 		$result = '';
 		if (!empty($playlist)) {
 			foreach($playlist as $media) {
-				$result .= $media['file'].'?'.($media['duration']*1000).($media['useDateInterval'] ? ($media['startDate']).'?'.$media['endDate'] : '')."\n";
+				$result .= $media['file'].'?'.($media['duration']*1000).($media['useDateInterval'] ? ($media['startDate']).'?'.$media['endDate'] : '')."\r\n";
 			}
 		}
 
