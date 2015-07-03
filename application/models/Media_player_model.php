@@ -94,7 +94,7 @@ class Media_player_model extends Generic_model
         return true;
     }
 
-    public function playlist($playerId, $date) {
+    public function playlistOnDate($playerId, $date) {
         return $this->read_all([
             'order_by' => 'order',
             'where' => [
@@ -114,6 +114,9 @@ class Media_player_model extends Generic_model
         ]);
     }
 
+    public function playlist($playerId) {
+        return $this->playlistOnDate($playerId, iso_date_now());
+    }
 
     public function players($mediaId) {
         return $this->read_all([

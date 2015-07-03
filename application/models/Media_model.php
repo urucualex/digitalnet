@@ -136,31 +136,4 @@ class Media_model extends Generic_model
         $this->load->model('media_player_model');
         $this->media_player_model->updatePlaylistLastUpdateForMediaIds($MediaIds);
     }
-
-    public function getPlaylistForPlayerOnDate($playerId, $date) {
-
-        //SELECT * FROM media JOIN media_player ON media_player.mediaId = media.mediaId AND media_player.playerId = $playerId
-        //      WHERE media.useDateInterval = 0 or (media.useDateInterval = 1 and media.endDate > $date)
-        $this->load->model('media_player_model');
-        $this->load->model('player_model');
-        $mediaPlayerTable = $this->media_player_model->table();
-        $mediaTable = $this->table();
-        $PlayerTable = $this->player_model->table();
-
-        $joinRule = sprintf('%s.mediaId = %s.mediaId AND %s.playerId = %s',$mediaTable, $mediaPlayerTable, $mediaPlayerTable, $playerId);
-        $this->db   ->select('*')
-                    ->from($mediaTable)
-                    ->join($mediaPlayerTable, $joinRule)
-                    ->where("useDateInterval = 0 OR (useDateInterval = 1 and endDate >= '$date')")
-                    ->order_by("$mediaTable.order");
-
-        $result = $this->db->get()->result_array();
-
-        return $result;
-    }
-
-    public function getPlaylistForPlayerToday($playerId) {
-        $date = date('Y-m-d');
-        return $this->getPlaylistForPlayerOnDate($playerId, $date);
-    }
 }

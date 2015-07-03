@@ -41,14 +41,14 @@ class Players extends Generic_Controller {
 	}
 
 	public function playlist($playerCode) {
-		$this->load->model('media_model');
+		$this->load->model('media_player_model');
 		$player = $this->player_model->getPlayerByCode($playerCode);
 
 		if (!$player) {
 			return;
 		}
 
-		$playlist = $this->media_model->getPlaylistForPlayerToday($player['playerId']);
+		$playlist = $this->media_player_model->playlist($player['playerId']);
 
 		$result = '';
 		if (!empty($playlist)) {
