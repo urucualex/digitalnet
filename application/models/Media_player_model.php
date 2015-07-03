@@ -71,15 +71,21 @@ class Media_player_model extends Generic_model
     }
 
     public function addMediaToPlayer($playerId, $mediaIds) {
-        if (!is_array($mediaIds)) {
-            $mediaIds = array($mediaIds);
-        }
+        $mediaIds = toArray($mediaIds);
+
         foreach ($mediaIds as $mediaId) {
             $data = array(
                 'playerId' => $playerId,
                 'mediaId' => $mediaId
             );
-            $result = $this->create($data);
+
+            $exists = $this->read_all([
+                'where' => $data
+            ]);
+
+            if (!$exists) {
+                $result = $this->create($data);
+            }
         }
 
         $this->load->model('player_model');

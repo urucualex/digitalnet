@@ -255,6 +255,16 @@ console.log('settings', settings);
 				console.error('Data for table is not array', data);
 				return;
 			}
+
+			// Get all __selected statuses from old rows
+			_.forEach(rows, function(row) {
+				_.forEach(data, function(item, itemIndex) {
+					if (row[settings.idColumn] == item[settings.idColumn]) {
+						data[itemIndex]['__selected'] = row['__selected'];
+					}
+				})
+			});
+
 			rows = data;
 			if (lastSortedColumn) {
 

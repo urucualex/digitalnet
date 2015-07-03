@@ -30,9 +30,10 @@
 	overflow: hidden;
 }
 
-table.table th { 
+table.table th {
 	padding-left: 5px;
 	padding-right: 5px;
+	cursor: pointer;
 }
 
 table.table tr:hover {
