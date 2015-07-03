@@ -5,6 +5,7 @@ var DinamicTable = function(settings) {
 	var tableElement;
 	var tableIsFocused = false;
 	var lastSortedAscending = false;
+	var lastSortedColumn;
 	var filters = [];
 
 	var cellRenderer = function(value, row, column, rowData) {
@@ -21,7 +22,7 @@ var DinamicTable = function(settings) {
 		source: null,
 		refreshInterval: 0,
 		paginable: false,
-		pageItemCount: null, 
+		pageItemCount: null,
 		multipleSelect: false,
 		manualOrder: false,
 		columns: [],
@@ -55,7 +56,7 @@ var DinamicTable = function(settings) {
 
 	settings = _.extend({}, defaultSettings, settings);
 	if (_.isArray(settings.columns)) {
-	
+
 		settings.columns.forEach(function (column, index) {
 			settings.columns[index] = _.extend( {}, defaultColumnSettings, column);
 		});
@@ -78,7 +79,7 @@ console.log('settings', settings);
 			tableElement.find('tbody').find('tr').addClass('selected');
 			_.forEach(rows, function(item, index) {
 				rows[index]['__selected'] = true;
-			});			
+			});
 		}
 
 		this.invertRowsSelection = function() {
@@ -87,7 +88,7 @@ console.log('settings', settings);
 			selected.removeClass('selected');
 			_.forEach(rows, function(item, index) {
 				rows[index]['__selected'] = !rows[index]['__selected'];
-			});			
+			});
 		}
 
 		this.getSelectedRowsIndex = function() {
@@ -102,7 +103,7 @@ console.log('settings', settings);
 
 		this.getRowsByIndex = function (indexes) {
 			if (!_.isArray(indexes)) {
-				if (isNaN(indexes)) {
+				if (!isNumeric(indexes)) {
 					return [];
 				}
 				indexes = [indexes];
@@ -144,7 +145,7 @@ console.log('settings', settings);
 				rowToMove.insertBefore(targetRow);
 			}
 			else {
-				rowToMove.insertAfter(targetRow);				
+				rowToMove.insertAfter(targetRow);
 			}
 
 			refreshIndexes();
@@ -176,7 +177,7 @@ console.log('settings', settings);
 		}
 
 		this.sortByColumn = function (column, ascending) {
-			if (!isNaN(column)) {
+			if (isNumeric(column)) {
 				column = settings.columns[column];
 			}
 
@@ -195,6 +196,8 @@ console.log('settings', settings);
 				if (!lastSortedAscending) {
 					rows = rows.reverse();
 				}
+
+				lastSortedColumn = column;
 
 				render();
 			}
@@ -226,6 +229,7 @@ console.log('settings', settings);
 				data = settings.onDataFetch();
 			}
 
+			// If onDataFetch returns false exit
 			if (data === false) {
 				return;
 			}
@@ -251,29 +255,10 @@ console.log('settings', settings);
 				console.error('Data for table is not array', data);
 				return;
 			}
-			if (rows.length == 0) {
-				rows = data;
-			}
-			else {
-				// for each new data
-				data.forEach(function(item, index) {
-					// find row by id
-					var rowData = {};
-					rowData[settings.idColumn] = item[settings.idColumn];
-					var rowIndex = _.findIndex(rows, rowData);
+			rows = data;
+			if (lastSortedColumn) {
 
-					// if found update data
-					if (rowIndex > -1) {
-						item['__selected'] = rows[rowIndex]['__selected'];
-						rows[rowIndex] = item;
-					}
-					else {
-						// add new row
-						rows.push(item);
-					}
-				});
-
-				rows = _.intersection(rows, data);			
+				self.sortByColumn(lastSortedColumn, lastSortedAscending);
 			}
 		}
 
@@ -354,15 +339,15 @@ console.log('settings', settings);
 		}
 
 		function moveSelectedRowsDown() {
-			var cont = true; 
+			var cont = true;
 			var selectedRowsIndex = self.getSelectedRowsIndex();
 			selectedRowsIndex.reverse()
-			
+
 
 			_.forEach(selectedRowsIndex, function(rowIndex) {
 				if (cont) {
 					cont = self.moveRow(rowIndex, 1 + rowIndex);
-				} 
+				}
 				else {
 					return false;
 				}
@@ -376,7 +361,7 @@ console.log('settings', settings);
 			_.forEach(selectedRowsIndex, function(rowIndex) {
 				if (cont) {
 					cont = self.moveRow(rowIndex, rowIndex - 1);
-				} 
+				}
 				else {
 					return false;
 				}
@@ -417,7 +402,7 @@ console.log('settings', settings);
 					else {
 						$this.addClass('selected');
 						rows[rowIndex]['__selected'] = true;
-					}					
+					}
 				}
 				else {
 					var remove = $this.hasClass('selected');
@@ -440,7 +425,7 @@ console.log('settings', settings);
 
 			// handle table rearange with up down keys
 			$(document).keydown(function(event) {
-				if (!tableIsFocused){ 
+				if (!tableIsFocused){
 					return;
 				}
 
@@ -448,7 +433,7 @@ console.log('settings', settings);
 					if (settings.manualOrder) {
 						moveSelectedRowsDown();
 					}
-				} 
+				}
 
 				if (event.keyCode == 38) {
 					if (settings.manualOrder) {
@@ -475,8 +460,8 @@ console.log('settings', settings);
 			// handle table focused
 			$(document).click(function(event) {
 				if ($.contains(tableElement.get(0), event.target)) {
-					tableIsFocused = true;			
-				} 
+					tableIsFocused = true;
+				}
 				else {
 					tableIsFocused = false;
 				}
@@ -487,7 +472,7 @@ console.log('settings', settings);
 				var $this = $(this),
 					columnIndex = parseInt($this.attr('data-column-index')),
 					column = settings.columns[columnIndex];
-				
+
 				if (_.isFunction(settings.onColumnClick) && (settings.onColumnClick(column, this, event) === false)) {
 					return;
 				}

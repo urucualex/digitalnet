@@ -1,4 +1,4 @@
-$(function() {	
+$(function() {
 
 	// Hide message box when clicking on ok
 	$("#message-box").on('click', '[data-action=message-box-hide]', function() {
@@ -26,7 +26,7 @@ function showMessageBox(title, message) {
 
 function hideConfirmBox() {
 	$('#confirm-box').hide();
-	hideOverlay();	
+	hideOverlay();
 }
 
 function showConfirmBox(title, message, callback) {
@@ -66,7 +66,7 @@ function createHTMLFromTemplate(template, newId) {
 	if (newId != undefined) {
 		$template.attr("id", newId);
 	}
-	
+
 	$template.appendTo("body");
 
 	return $template;
@@ -92,7 +92,7 @@ console.log('form', form, formData);
 	var request = $.ajax({
 		url: action,
 		type: method,
-		data: formData, 
+		data: formData,
 		dataType: 'json',
 		timeout: 10000
 	});
@@ -104,7 +104,7 @@ console.log('form', form, formData);
 	request.done(function(data) {
 		if (data.status !== 'ok') {
 			errorMessage(data.message, data);
-		} 
+		}
 		else {
 			if (data.id != null) {
 				$form.find("input[name=id]").val(data.id);
@@ -121,7 +121,7 @@ console.log('form', form, formData);
 		alert(textStatus);
 	});
 
-	return request;	
+	return request;
 }
 
 
@@ -147,7 +147,7 @@ function uploadFile(settings) {
     var fileSize = settings.file.size;
     var formData = new FormData();
     formData.append(settings.fieldName, settings.file);
-    
+
     // start request
     var request = $.ajax({
       type: 'post'
@@ -267,7 +267,7 @@ String.prototype.elipsis = function(charCount) {
 	}
 
 	var trim = this.substring(0, charCount - 1);
-	return '<span title="' + escapeHtml(this) + '">' + trim + '...</span>'; 
+	return '<span title="' + escapeHtml(this) + '">' + trim + '...</span>';
 }
 
 function escapeHtml(text) {
@@ -280,4 +280,13 @@ function escapeHtml(text) {
 	};
 
 	return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+
+
+function isNumeric(value) {
+  if ((value === null) || (value === '')) {
+     return false;
+  }
+
+  return !isNaN(value);
 }

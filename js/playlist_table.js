@@ -34,7 +34,7 @@ function playlistTable(){
 			},
 			onRowDblClicked: function(value, row, column, rowData) {
 				var win = window.open('/media/item/' + rowData['mediaId'], '_blank');
-				win.focus();		
+				win.focus();
 			},
 			columns: [
 				{
@@ -42,7 +42,7 @@ function playlistTable(){
 					width: '30px',
 					cellRenderer: function(value, row) {
 						return (row + 1);
-					}					
+					}
 				},
 				{
 					name: 'Uploadat',
@@ -56,7 +56,7 @@ function playlistTable(){
 						return '';
 					}
 
-				},				
+				},
 				{
 					name: 'Pozitia in playlist',
 					source: 'order',
