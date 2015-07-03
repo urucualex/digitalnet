@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Generic_Controller extends CI_Controller {
-		
+
 	public $_item_name = ''; // used for view names -> $item.'.php' (edit item view), $item.'s.php' (items list view), item data will be loaded in $this->data[_item_name]
 	public $_model = ''; // main model used by the controller, loaded on construct
 
@@ -21,7 +21,7 @@ class Generic_Controller extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		
+
 		if (!empty($this->_model)) {
 			$this->load->model($this->_model);
 		}
@@ -125,7 +125,7 @@ debug('POST: ', $data);
 			redirect('/'.$item_name.'s/'.$id);
 		}
 
-		return ($this->_result['status'] == 'ok');		
+		return ($this->_result['status'] == 'ok');
 	}
 
 
@@ -155,7 +155,7 @@ debug('POST: ', $data);
 			redirect('/'.$item_name.'s');
 		}
 
-		return ($this->result['status'] == 'ok');
+		return ($this->_result['status'] == 'ok');
 	}
 
 	public function php_test() {

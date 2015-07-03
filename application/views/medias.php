@@ -1,5 +1,5 @@
 <?php
-    $this->load->view('header');    
+    $this->load->view('header');
     $this->load->view('menu');
 ?>
 
@@ -30,9 +30,9 @@
 				</li>
 				<li>
 					<hr>
-				</li>				
+				</li>
 				<li>
-					<a href="#"><span class="glyphicon glyphicon-trash"></span> Sterge</a>
+					<a href="#" data-action="delete-media"><span class="glyphicon glyphicon-trash"></span> Sterge</a>
 				</li>
 				<li>
 					<a href="#"><span class="glyphicon glyphicon-remove"></span> Scoate din toti clientii</a>
@@ -66,7 +66,7 @@
 								<label>
 									<input type="checkbox">Farmacie
 								</label>
-							</li>																				
+							</li>
 					</div>
 				</li>
 				<li>
@@ -79,13 +79,13 @@
 			<table id="main-media-table" class="table table-striped">
 				<thead>
 				</thead>
-				<tbody>																		
+				<tbody>
 				</tbody>
 			</table>
 		</div> <!-- Content -->
 	</div>
 </div>
 
-        
+
 <?php
     $this->load->view('footer');

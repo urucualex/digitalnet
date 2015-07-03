@@ -67,7 +67,7 @@ $(function(){
 				}
 			}
 		});
-		playlistTable.update();		
+		playlistTable.update();
 	})
 
 	$(document).on('keyup', '#players-table-filter', function() {
@@ -79,20 +79,28 @@ $(function(){
 		event.preventDefault();
 		showConfirmBox('Salveaza ordinea playlistului', 'Esti sigur ca vrei sa salvezi ordinea playlistului?', savePlaylistOrder);
 	});
+
+	$(document).on('click', '[data-action=delete-media]', function(event) {
+		event.preventDefault();
+
+		showConfirmBox('Sterge campania', 'Esti sigur ca vrei sa stergi campaniile selectate?', deleteSelectedMedia);
+
+	})
 });
 
 function savePlaylistOrder() {
-	media = mediaTable.getAllRows();
-	mediaIds = _.pluck(media, 'mediaId');
-	mediaOrders = _.pluck(media, 'order');
+	var media = mediaTable.getAllRows();
+	var mediaIds = _.pluck(media, 'mediaId');
+	var mediaOrders = _.pluck(media, 'order');
+
 	mediaOrders = _.sortBy(mediaOrders);
 
 	showOverlay();
-	request = $.ajax({
+	var request = $.ajax({
 		url: '/media/setOrder',
 		type: 'POST',
 		data: {
-			mediaIds: mediaIds, 
+			mediaIds: mediaIds,
 			order: mediaOrders
 		}
 	});
@@ -105,7 +113,41 @@ function savePlaylistOrder() {
 	request.done(function() {
 		mediaTable.update();
 		showMessageBox('Succes!', 'Ordinea playlist-ului a fost salvata!');
-	});	
+	});
+}
+
+function deleteSelectedMedia() {
+	var media = mediaTable.getSelectedRows();
+	var mediaIds = _.pluck(media, 'mediaId');
+
+	var deleteMedia = function() {
+		if (!mediaIds.length) {
+			return;
+		}
+		var mediaIdToDelete = mediaIds.splice(0,1);
+		showOverlay();
+		var request = $.ajax({
+			url: '/media/delete/' + mediaIdToDelete,
+			type: 'GET'
+		});
+
+		request.always(function(data1, data2) {
+			hideOverlay();
+			console.log('/media/delete response', data1, data2);
+		});
+
+		request.done(function() {
+			if (mediaIds.length) {
+				deleteMedia();
+			}
+			else {
+				mediaTable.update();
+				showMessageBox('Succes!', 'Campaniile au fost sterse!');
+			}
+		});
+	}
+
+	deleteMedia();
 }
 
 // If media uploaded update file duration field
