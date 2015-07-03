@@ -94,10 +94,10 @@ class Player_model extends Generic_model
         parent::__construct();
     }
 
-    public function updatePlayingFile($playerCode, $mediaFile) {
+    public function updatePlayingFile($playerCode, $mediaFile, $mediaFileDuration) {
         $now = date('Y-m-d H:i:s');
 
-        $updateData = ['playedFile' => $mediaFile, 'lastMessage' => $now];
+        $updateData = ['playedFile' => $mediaFile, 'playedFileDuration' => $mediaFileDuration , 'lastMessage' => $now];
         return $this->update_where(['code' => $playerCode], $updateData);
     }
 

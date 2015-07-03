@@ -103,7 +103,7 @@ class Migration_Add_Players_Media extends CI_Migration {
                                 'type' => 'VARCHAR',
                                 'constraint' => '100'
                         ),
-                        'playerFileDuration' => array(
+                        'playedFileDuration' => array(
                                 'type' => 'INT',
                                 'unsigned' => TRUE,
                                 'constraint' => '8'
