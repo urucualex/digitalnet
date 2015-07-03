@@ -53,7 +53,7 @@ class Players extends Generic_Controller {
 		$result = '';
 		if (!empty($playlist)) {
 			foreach($playlist as $media) {
-				$result .= $media['file'].'?'.($media['duration']*1000).($media['useDateInterval'] ? ($media['startDate']).'?'.$media['endDate'] : '')."\r\n";
+				$result .= $media['file'].'?'.($media['duration']*1000).($media['useDateInterval'] ? ('?'.iso_date_to_date($media['startDate']).'?'.iso_date_to_date($media['endDate'])) : '')."\r\n";
 			}
 		}
 
