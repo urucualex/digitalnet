@@ -971,7 +971,6 @@ class Generic_Model extends CI_Model
         }
 
         $result = $this->db->update($this->table(), $Data);
-
         if (!$result)
         {
             //debug('DB Error number: ',$this->db->_error_number());

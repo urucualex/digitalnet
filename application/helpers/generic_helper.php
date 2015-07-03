@@ -477,6 +477,10 @@
         return date('Y-m-d');
     }
 
+    function iso_date_time_now() {
+        return date('Y-m-d H:i:s');
+    }
+
 if (!function_exists('array_column'))
 {
     function array_column($Array, $Column, $Index_column = NULL)

@@ -95,7 +95,7 @@ class Player_model extends Generic_model
     }
 
     public function updatePlayingFile($playerCode, $mediaFile, $mediaFileDuration) {
-        $now = date('Y-m-d H:i:s');
+        $now = iso_date_time_now();
 
         $updateData = ['playedFile' => $mediaFile, 'playedFileDuration' => $mediaFileDuration , 'lastMessage' => $now];
         return $this->update_where(['code' => $playerCode], $updateData);

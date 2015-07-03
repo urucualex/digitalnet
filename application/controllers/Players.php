@@ -89,10 +89,14 @@ class Players extends Generic_Controller {
 	}
 
 	public function playing($playerCode, $playingMediaFile, $playingMediaFileDuration) {
-		debug('playing', ['playerCode' => $playerCode, 'file' => $playingMediaFile]);
-
 		$this->player_model->updatePlayingFile($playerCode, $playingMediaFile, $playingMediaFileDuration);
-
 		$this->status($playerCode);
+	}
+
+	public function confirm_media_download($playerCode, $mediaFileName) {
+		$this->load->model('media_player_model');
+		if ($this->media_player_model->confirmMediaDownload($playerCode, $mediaFileName)) {
+			echo 'ok';
+		};
 	}
 }

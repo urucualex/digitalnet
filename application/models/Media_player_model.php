@@ -31,9 +31,6 @@ class Media_player_model extends Generic_model
                           'column_name' => 'Uploaded'
                         , 'trim' => true
                         , 'not_empty' => true
-                        , 'integer' => true
-                        , 'min' => 1
-
                 )
             );
 
@@ -56,9 +53,6 @@ class Media_player_model extends Generic_model
                           'column_name' => 'Uploaded'
                         , 'trim' => true
                         , 'not_empty' => true
-                        , 'integer' => true
-                        , 'min' => 1
-
                 )
             );
 
@@ -130,5 +124,28 @@ class Media_player_model extends Generic_model
         $result = $this->db->query($query);
 
         return $result;
+    }
+
+    public function confirmMediaDownload($playerCode, $mediaFileName) {
+
+        $this->load->model('media_model');
+        $media = $this->media_model->read_by('file', $mediaFileName, 'mediaId');
+
+        $this->load->model('player_model');
+        $player = $this->player_model->read_by('code', $playerCode, 'playerId');
+
+        if (!$media) {
+            return false;
+        }
+
+        if (!$player) {
+            return false;
+        }
+
+        $updateData = ['uploaded' => iso_date_time_now()];
+        $this->update_where(['playerId' => $player['playerId'], 'mediaId' => $media['mediaId']], $updateData);
+
+        return true;
+
     }
 }
