@@ -110,4 +110,15 @@ class Media extends Generic_Controller {
 
 		$this->media_model->setPlaylistOrder($mediaIds, $mediaOrder);
 	}
+
+	public function removeMediaFromPlayers($mediaId) {
+		$playerIds = $this->input->post('playerIds', true);
+
+		if (!$this->media_player_model->removeMediaFromPlayers($mediaId, $playerIds)) {
+			$this->output->set_status_header(404);
+			return;
+		}
+
+		echo 'ok';
+	}
 }

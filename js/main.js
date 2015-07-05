@@ -34,7 +34,7 @@ $(function(){
 			}
 
 		});
-	})
+	});
 
 	// Select players to add to selected media
 	$(document).on('click', '[data-action=add-media-to-players]', function(event) {
@@ -84,8 +84,14 @@ $(function(){
 		event.preventDefault();
 
 		showConfirmBox('Sterge campania', 'Esti sigur ca vrei sa stergi campaniile selectate?', deleteSelectedMedia);
-
 	})
+
+	$(document).on('click', '[data-action=remove-players-from-media]', function(event) {
+		event.preventDefault();
+
+		removeSelectedPlayersFromMedia();
+	});
+
 });
 
 function savePlaylistOrder() {
@@ -118,6 +124,11 @@ function savePlaylistOrder() {
 
 function deleteSelectedMedia() {
 	var media = mediaTable.getSelectedRows();
+
+	if (_.isEmpty(media)) {
+		return;
+	}
+
 	var mediaIds = _.pluck(media, 'mediaId');
 
 	var deleteMedia = function() {
@@ -148,6 +159,52 @@ function deleteSelectedMedia() {
 	}
 
 	deleteMedia();
+}
+
+function removeSelectedPlayersFromMedia() {
+	var selectedPlayers = mediaplayersTable.getSelectedRows();
+
+	if (_.isEmpty(selectedPlayers)) {
+		console.error('removeSelectedPlayersFromMedia: No players selected');
+		return;
+	}
+
+	var selectedPlayerIds = _.pluck(selectedPlayers, 'playerId');
+	var currentMediaId = getCurrentMediaId();
+
+	if (!currentMediaId) {
+		console.error('removeSelectedPlayersFromMedia: could not find currentMediaId');
+		return;
+	}
+
+	showConfirmBox('Scoate statii', 'Esti sigur ca vrei sa renunti la statiile selectate?', function() {
+		showOverlay();
+		var request = $.ajax({
+			url: '/media/removemediafromplayers/' + currentMediaId,
+			method: 'post',
+			data: {
+				playerIds:  selectedPlayerIds
+			}
+		});
+
+		request.always(function(data1, data2) {
+			hideOverlay();
+			console.log(data1, data2);
+		});
+
+		request.done(function(data) {
+			mediaplayersTable.update();
+		});
+	});
+
+}
+
+function getCurrentMediaId() {
+	var $idInput = $("input[name=id][data-type=media]").first();
+
+	if ($idInput.length) {
+		return $idInput.val();
+	}
 }
 
 // If media uploaded update file duration field

@@ -155,6 +155,15 @@ class Media_player_model extends Generic_model
         $this->update_where(['playerId' => $player['playerId'], 'mediaId' => $media['mediaId']], $updateData);
 
         return true;
+    }
 
+    public function removeMediaFromPlayers($mediaIds, $playerIds) {
+        $mediaIds = toArray($mediaIds);
+        $playerIds = toArray($playerIds);
+        $query = sprintf("DELETE FROM %s WHERE mediaId in (%s) AND playerId IN (%s)", $this->_table, implode(',', $mediaIds), implode(',', $playerIds));
+
+        $result = $this->db->query($query);
+
+        return $result;
     }
 }

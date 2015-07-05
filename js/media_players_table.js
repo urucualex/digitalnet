@@ -7,7 +7,7 @@ function mediaPlayersTable() {
 
 	console.log('media-media-table', this);
 
-	var mediaplayersTable = new DinamicTable( {
+	mediaplayersTable = new DinamicTable( {
 		container: this,
 		url: '/media/players/'+mediaId,
 		source: 'players',
@@ -16,7 +16,7 @@ function mediaPlayersTable() {
 		multipleSelect: true,
 		onRowDblClicked: function(value, row, column, rowData) {
 			var win = window.open('/players/item/' + rowData['playerId'], '_blank');
-			win.focus();		
+			win.focus();
 		},
 		columns: [
 			{
@@ -24,7 +24,7 @@ function mediaPlayersTable() {
 				width: '30px',
 				cellRenderer: function(value, row) {
 					return (row + 1);
-				}					
+				}
 			},
 			{
 				name: 'Nume',
@@ -32,7 +32,7 @@ function mediaPlayersTable() {
 				sortable: true,
 				width: 'auto',
 				cellRenderer: function(value) {
-					return '<strong>' + value + '</value>'; 
+					return '<strong>' + value + '</value>';
 				}
 			},
 			{
@@ -43,7 +43,7 @@ function mediaPlayersTable() {
 				cellRenderer: function(value, row, column, rowData) {
 					return value.elipsis(10);
 				}
-			},			
+			},
 			{
 				name: 'Cod',
 				source: 'code',
