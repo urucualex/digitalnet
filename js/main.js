@@ -92,6 +92,9 @@ $(function(){
 		removeSelectedPlayersFromMedia();
 	});
 
+	$(document).on('click', '[data-action=remove-media-from-playlist]', function(event) {
+		removeSelectedMediaFromPlaylist();
+	});
 });
 
 function savePlaylistOrder() {
@@ -180,7 +183,7 @@ function removeSelectedPlayersFromMedia() {
 	showConfirmBox('Scoate statii', 'Esti sigur ca vrei sa renunti la statiile selectate?', function() {
 		showOverlay();
 		var request = $.ajax({
-			url: '/media/removemediafromplayers/' + currentMediaId,
+			url: '/players/removeMedia/' + currentMediaId,
 			method: 'post',
 			data: {
 				playerIds:  selectedPlayerIds
@@ -196,11 +199,56 @@ function removeSelectedPlayersFromMedia() {
 			mediaplayersTable.update();
 		});
 	});
+}
 
+
+function removeSelectedMediaFromPlaylist() {
+	var selectedMedia = playlistTable.getSelectedRows();
+
+	if (_.isEmpty(selectedMedia)) {
+		console.error('removeSelectedMediaFrmPlaylist: No media selected');
+		return;
+	}
+
+	var selectedMediaIds = _.pluck(selectedMedia, 'mediaId');
+	var currentPlayerId = getCurrentPlayerId();
+
+	if (!currentPlayerId) {
+		console.error('removeSelectedMediaFrmPlaylist: could not find currentPlayerId');
+		return;
+	}
+
+	showConfirmBox('Scoate campanii', 'Esti sigur ca vrei sa renunti la campaniile selectate?', function() {
+		showOverlay();
+		var request = $.ajax({
+			url: '/media/removeFromPlayer/' + currentPlayerId,
+			method: 'post',
+			data: {
+				mediaIds:  selectedMediaIds
+			}
+		});
+
+		request.always(function(data1, data2) {
+			hideOverlay();
+			console.log(data1, data2);
+		});
+
+		request.done(function(data) {
+			playlistTable.update();
+		});
+	});
 }
 
 function getCurrentMediaId() {
 	var $idInput = $("input[name=id][data-type=media]").first();
+
+	if ($idInput.length) {
+		return $idInput.val();
+	}
+}
+
+function getCurrentPlayerId() {
+	var $idInput = $("input[name=id][data-type=player]").first();
 
 	if ($idInput.length) {
 		return $idInput.val();

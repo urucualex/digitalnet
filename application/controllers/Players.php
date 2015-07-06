@@ -99,4 +99,18 @@ class Players extends Generic_Controller {
 			echo 'ok';
 		};
 	}
+
+
+	public function removeMedia($mediaId) {
+		$playerIds = $this->input->post('playerIds', true);
+
+		$this->load->model('media_player_model');
+
+		if (!$this->media_player_model->removeMediaFromPlayers($mediaId, $playerIds)) {
+			$this->output->set_status_header(404);
+			return;
+		}
+
+		echo 'ok';
+	}
 }
