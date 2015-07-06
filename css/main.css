@@ -30,6 +30,69 @@
 	overflow: hidden;
 }
 
+table.table th {
+	padding-left: 5px;
+	padding-right: 5px;
+	cursor: pointer;
+}
+
+table.table tr:hover {
+	background-color: #f0f0f0;
+}
+
+table.table tr.selected {
+	background-color: #e0e0f0;
+}
+
+button.btn.action{
+	min-width: 100px;
+}
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.5;
+	background-color: black;
+	z-index: 9000;
+	display: none;
+}
+
+#select-players {
+	position: fixed;
+	width: 90%;
+	margin-left: -45%;
+	margin-right: auto;
+	left: 50%;
+	vertical-align: middle;
+	top: 5%;
+	height: 90%;
+	z-index: 9999;
+}
+
+.template {
+	display: none;
+}
+
+#message-box {
+	position: fixed;
+	top: 30%;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9998;
+	display: none;
+}
 
 
-
+#confirm-box {
+	position: fixed;
+	top: 30%;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9998;
+	display: none;
+}
