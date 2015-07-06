@@ -304,8 +304,6 @@ class Migration_Add_Players_Media extends CI_Migration {
                 $this->dbforge->add_key('mediaId');
                 $this->dbforge->add_key('playerId');
                 $this->dbforge->create_table('media_player');
-
-                $this->db->
         }
 
         public function down()

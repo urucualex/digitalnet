@@ -9,14 +9,32 @@ class Media extends Generic_Controller {
 		parent::__construct();
 	}
 
+	private function getDurationFromFFmpegOutput($output) {
+		if (!is_array($output)) {
+			return '00:00:00';
+		}
+		
+		foreach($output as $line) {
+			if (preg_match('/Duration: ([0-9:]+)/', $line, $matches)) {
+				return $matches[1];
+			}
+		}
+		
+		return '00:00:00';
+	}
+	
 	private function getVideoDuration($file_path) {
 
-		$exec_str = 'ffmpeg -i "'.$file_path.'" 2>&1 | grep \'Duration\' | cut -d \' \' -f 4 | sed s/,//';
-		$time = exec($exec_str, $output);
+		//$exec_str = 'ffmpeg -i "'.$file_path.'" 2>&1 | grep \'Duration\' | cut -d \' \' -f 4 | sed s/,//';
+		$exec_str = 'ffmpeg -i "'.$file_path.'" 2>&1';		
+		exec($exec_str, $output);
+		
+		$time = $this->getDurationFromFFmpegOutput($output);
+		
 		$duration = explode(":",$time);
 
-		debug('ffmpeg cmd', $exec_str);
-		debug('ffmpeg output', $output);
+		//debug('ffmpeg cmd', $exec_str);
+		//debug('ffmpeg output', $output);
 
 		$duration_in_seconds = 0;
 
